@@ -2,13 +2,18 @@
 
 
 body{
-    background-image: url("./38275.jpg");
+  background-image: url("./38275.jpg");
+  color: aquamarine;
+  font-family: "Bitcount Single", system-ui;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 div.title{
   align-items: center; 
   justify-content: center;
   margin-left : 40px;
+  font-size: 25px;
 }
 
 div.column{
@@ -20,26 +25,18 @@ div.row{
 }
 
 h1 {
-  color: aquamarine;
-  font-family: "Bitcount Single", system-ui;
-  font-optical-sizing: auto;
   font-weight: 300px;
-  font-style: normal;
 }
 
 h2 {
-  color: aquamarine; 
-  font-family: "Bitcount Single", system-ui;
-  font-optical-sizing: auto;
   font-weight: 100px;
-  font-style: normal;
-  align-content: center;
+}
+
+h3 {
+  color: cornflowerblue;
+  font-size: 25px;
 }
 
 p {
-  color: cadetblue;
-  font-family: "Bitcount Single", system-ui;
-  font-optical-sizing: auto;
   font-weight: 100px;
-  font-style: normal;  
 }
