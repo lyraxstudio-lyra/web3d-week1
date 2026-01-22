@@ -37,6 +37,10 @@ h3 {
   font-size: 25px;
 }
 
+a {
+  color: palevioletred;
+}
+
 p {
   font-weight: 100px;
 }
