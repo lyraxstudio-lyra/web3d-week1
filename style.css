@@ -11,6 +11,13 @@ div.title{
   margin-left : 40px;
 }
 
+div.column{
+  display: flex;
+}
+
+div.row{
+  flex: 50%;
+}
 
 h1 {
   color: aquamarine;
