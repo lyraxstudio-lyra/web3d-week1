@@ -2,7 +2,7 @@
 
 
 body{
-    background-color: azure;
+    background-image: url("./38275.jpg");
 }
 
 div.title{
@@ -30,7 +30,7 @@ h2 {
 }
 
 p {
-  color: navy;
+  color: cadetblue;
   font-family: "Bitcount Single", system-ui;
   font-optical-sizing: auto;
   font-weight: 100px;
