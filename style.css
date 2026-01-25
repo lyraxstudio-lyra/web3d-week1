@@ -18,6 +18,7 @@ div.title{
 
 div.column{
   display: flex;
+  font-size: 17px;
 }
 
 div.row{
