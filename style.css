@@ -11,4 +11,12 @@ body {
 
 a {
   color: palevioletred;
+  position: relative;
+}
+
+div.bgImg{
+  position: fixed;
+  z-index: -2;
+  opacity: 30%;
+  fill: blue;
 }
