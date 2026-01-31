@@ -63,6 +63,7 @@ function draw() {
     
     //cone
     push();
+    stroke(255, 253, 132);
     //cone1
     rotateX(frameCount * 0.12);
     rotateY(frameCount * 0.12);
@@ -80,7 +81,7 @@ function draw() {
     rotateX(frameCount * 0.14);
      rotateY(frameCount * 0.24);
     fill(255, 253, 132);
-    torus(60);
+    torus(40);
     pop();
     
     
