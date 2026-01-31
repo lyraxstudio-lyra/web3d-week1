@@ -1,4 +1,7 @@
 body {
     color: aquamarine;
     background-image: url(Bg.jpg);
+    background-repeat: no-repeat; 
+    background-size: stretch;      
+    background-attachment: scroll;
 }
