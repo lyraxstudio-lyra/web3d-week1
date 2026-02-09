@@ -7,6 +7,8 @@ let options = {
   failureCallback: handleError,
   fileType: '.obj'
 };
+let y = -1200;
+let snowflakes = 400;
 
 // Load the file and create a p5.Geometry object.
 // Normalize the geometry's size to fit the canvas.
@@ -32,7 +34,7 @@ function draw() {
   //ellipse1
   push();
     fill(0);
-    shininess(10);
+    //shininess(10);
     //specularMaterial(255);
     //emissiveMaterial(20, 0, 25);
     noStroke();
@@ -50,7 +52,7 @@ function draw() {
   //ellipse2
   push();
     fill(21, 155, 255);
-    shininess(10);
+    //shininess(10);
     //specularMaterial(255);
     //emissiveMaterial(20, 0, 25);
     noStroke();
@@ -107,6 +109,15 @@ function draw() {
   //stroke(129, 0, 250);  
   //torus(150);
   pop();
-  
-
+  //snowfall
+  //for (let s = 0; s < snowflakes*0.01; s++) {
+  //  //circle(random(width), y + random(1200), random(1, 6));
+  //   ellipsoid(30);
+  //}
+  //y += 20;
+//
+  //if (y > 0) {
+  //  y = -600;
+//}
 }
+
