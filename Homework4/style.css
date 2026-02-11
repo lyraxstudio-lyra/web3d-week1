@@ -2,12 +2,15 @@
 
 body {
     align-content: center;
-  background-image: url(Bg.jpg);
+  background-image: url(lotus_text.png);
   color: aquamarine;
   font-family: "Bitcount Single", system-ui;
   font-optical-sizing: auto;
   font-style: normal;
   background-size: cover;
+   display: flex;
+    justify-content: center; 
+    align-items: center;    
   
 }
 

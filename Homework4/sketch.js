@@ -110,6 +110,7 @@ function draw() {
   pop();
   
   push();
+  stroke(250);
   rotateZ(frameCount * -1);
   torus(120);
   pop();
@@ -120,4 +121,4 @@ function draw() {
   pop();
 }
 
-//function 
+//function keyPressed 
