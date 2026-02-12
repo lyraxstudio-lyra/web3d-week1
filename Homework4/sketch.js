@@ -1,7 +1,8 @@
 let lightZ = -100;
-//let r;
-//let g;
-//let b;
+let boarder;
+let r1;
+let g1;
+let b1;
 //let glow=true;
 
 let shape;
@@ -12,10 +13,18 @@ let snowflakes = 400;
 // Normalize the geometry's size to fit the canvas.
 function preload() {
   shape = loadModel("lotus_ez.obj", true);
+  boarder = loadimage("boarder.gif");
 }
 
 function setup() {
+
   createCanvas(600, 600, WEBGL);
+  //canvas.parent('sketch-holder');
+
+  
+  let buttonA=createButton('Pause Music');
+  buttonA.parent('button-holder');
+  buttonA.mousePressed(PauseMusic);
   angleMode(DEGREES);
 }
 
@@ -28,6 +37,8 @@ function draw() {
 
   pop();
   scale(2);
+  
+
 
   //ellipse1
   push();
@@ -110,7 +121,7 @@ function draw() {
   pop();
   
   push();
-  stroke(250);
+  stroke(r1,g1,b1);
   rotateZ(frameCount * -1);
   torus(120);
   pop();
@@ -121,4 +132,19 @@ function draw() {
   pop();
 }
 
-//function keyPressed 
+function keyPressed() {
+  if (key === 'c') {
+    r1=random(150,250);
+    g1=random(150,250);
+    b1=random(0,100);
+  }
+
+  //if (keyCode === ENTER) {
+    // Code to run.
+  //}
+
+} 
+
+function PauseMusic() {
+
+}

@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
 
 body {
-    align-content: center;
+   align-content: center;
   background-image: url(lotus_text.png);
   color: aquamarine;
   font-family: "Bitcount Single", system-ui;
   font-optical-sizing: auto;
   font-style: normal;
-  background-size: cover;
+  background-size: auto;
    display: flex;
+  gap: 20px;
     justify-content: center; 
     align-items: center;    
   
@@ -26,3 +27,20 @@ div.bgImg{
   opacity: 30%;
   fill: blue;
 }
+
+div.boarder{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: -10;
+}
+
+/*div.column{*/
+  /*flex-direction: row;*/
+  /*justify-content: center;*/
+  /*align-items: flex-start;*/
+  /*gap: 30px;*/
+  /*padding: 40px;   */
+  /*display: flex;*/
+  /*top: 50px;*/
+/*}*/
