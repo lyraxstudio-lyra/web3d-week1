@@ -8,6 +8,10 @@ let b1;
 let shape;
 let y = -1200;
 let snowflakes = 400;
+let botton;
+
+var song;
+
 
 // Load the file and create a p5.Geometry object.
 // Normalize the geometry's size to fit the canvas.
