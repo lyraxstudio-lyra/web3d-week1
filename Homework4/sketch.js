@@ -3,6 +3,7 @@ let boarder;
 let r1;
 let g1;
 let b1;
+let emoji = '🎼';
 //let glow=true;
 
 let shape;
@@ -12,6 +13,9 @@ let botton;
 
 var song;
 var button;
+
+let rY=0.4;
+let rX=0;
 
 function preload() {
   shape = loadModel("lotus_ez.obj", true);
@@ -23,7 +27,7 @@ function setup() {
   createCanvas(600, 600, WEBGL);
   //canvas.parent('sketch-holder');
 
-  let buttonA = createButton("Hear");
+  let buttonA = createButton(emoji);
   buttonA.parent("button-holder");
   buttonA.mousePressed(PlayMusic);
   angleMode(DEGREES);
@@ -98,7 +102,8 @@ function draw() {
 
   //rotateX(frameCount * 1);
   //rotateZ(frameCount * 1);
-  rotateY(frameCount * 2);
+  rotateY(frameCount * rY);
+  rotateX(frameCount * rX);
   orbitControl();
 
   model(shape);
@@ -108,12 +113,6 @@ function draw() {
   //torus halo if works
   noFill();
   stroke(0);
-  //push();
-  //rotateX(frameCount * 2);
-  //fill(0);
-  //fill(255, 255, 72);
-  //stroke(255, 255, 72);
-  //stroke(129, 0, 250);
   push();
   rotateZ(frameCount * 1);
   torus(130);
@@ -137,17 +136,33 @@ function keyPressed() {
     g1 = random(150, 250);
     b1 = random(0, 100);
   }
+    if (key === "r") {
+    rX += 0.1;
+    rY +=0.1;
+  }
+    if (key === "s") {
+      rX = 0;
+      rY = 0.4;
+    }
+  
+  if (key === "p") {
+    rX=0;
+    rY=0;
+  }
 
-  //if (keyCode === ENTER) {
-  // Code to run.
-  //}
 }
 
 function PlayMusic() {
   userStartAudio();
   if ( song.isPlaying() ) { 
-    song.stop();
+    song.pause();
   } else {
     song.play();
   }
+  
+
 }
+
+
+
+
