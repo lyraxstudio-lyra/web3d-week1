@@ -18,7 +18,7 @@ var song;
 function preload() {
   shape = loadModel("lotus_ez.obj", true);
   boarder = loadimage("boarder.gif");
-  song = loadSound("sea.wav");
+  song = loadSound("jing.mp3");
 }
 
 function setup() {
