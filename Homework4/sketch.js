@@ -13,11 +13,9 @@ let botton;
 var song;
 var button;
 
-// Load the file and create a p5.Geometry object.
-// Normalize the geometry's size to fit the canvas.
 function preload() {
   shape = loadModel("lotus_ez.obj", true);
-  boarder = loadimage("boarder.gif");
+  boarder = loadImage("boarder.gif");
   song = loadSound("jing.mp3");
 }
 
@@ -146,6 +144,7 @@ function keyPressed() {
 }
 
 function PlayMusic() {
+  userStartAudio();
   if ( song.isPlaying() ) { 
     song.stop();
   } else {
