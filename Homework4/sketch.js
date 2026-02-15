@@ -18,6 +18,7 @@ var song;
 function preload() {
   shape = loadModel("lotus_ez.obj", true);
   boarder = loadimage("boarder.gif");
+  song = loadSound("sea.wav");
 }
 
 function setup() {
@@ -26,9 +27,9 @@ function setup() {
   //canvas.parent('sketch-holder');
 
   
-  let buttonA=createButton('Pause Music');
+  let buttonA=createButton('Hear');
   buttonA.parent('button-holder');
-  buttonA.mousePressed(PauseMusic);
+  buttonA.mousePressed(PlayMusic);
   angleMode(DEGREES);
 }
 
@@ -149,6 +150,15 @@ function keyPressed() {
 
 } 
 
-function PauseMusic() {
+function PlayMusic() {
+  if (!song.isPlaying()) {
+    song.play();
+    song.setVolume(0.3);
+    button.html("pause");
+    
+  } else {
+    song.pause();     button.html("play");
+  }
+  
 
 }
