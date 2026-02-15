@@ -2,13 +2,13 @@
 
 body {
   background-image: url(mainBG.jpg);
-  background-size: auto;
+  /*background-size: auto;*/
   background-repeat: no-repeat;
   color: aquamarine;
   font-family: "Bitcount Single", system-ui;
   font-optical-sizing: auto;
   font-style: normal;
-  
+  background-size: cover;
 }
 
 a {

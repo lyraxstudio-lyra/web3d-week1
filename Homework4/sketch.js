@@ -11,7 +11,7 @@ let snowflakes = 400;
 let botton;
 
 var song;
-
+var button;
 
 // Load the file and create a p5.Geometry object.
 // Normalize the geometry's size to fit the canvas.
@@ -22,13 +22,11 @@ function preload() {
 }
 
 function setup() {
-
   createCanvas(600, 600, WEBGL);
   //canvas.parent('sketch-holder');
 
-  
-  let buttonA=createButton('Hear');
-  buttonA.parent('button-holder');
+  let buttonA = createButton("Hear");
+  buttonA.parent("button-holder");
   buttonA.mousePressed(PlayMusic);
   angleMode(DEGREES);
 }
@@ -42,8 +40,6 @@ function draw() {
 
   pop();
   scale(2);
-  
-
 
   //ellipse1
   push();
@@ -124,13 +120,13 @@ function draw() {
   rotateZ(frameCount * 1);
   torus(130);
   pop();
-  
+
   push();
-  stroke(r1,g1,b1);
+  stroke(r1, g1, b1);
   rotateZ(frameCount * -1);
   torus(120);
   pop();
-  
+
   push();
   rotateZ(frameCount * 1);
   torus(110);
@@ -138,27 +134,21 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key === 'c') {
-    r1=random(150,250);
-    g1=random(150,250);
-    b1=random(0,100);
+  if (key === "c") {
+    r1 = random(150, 250);
+    g1 = random(150, 250);
+    b1 = random(0, 100);
   }
 
   //if (keyCode === ENTER) {
-    // Code to run.
+  // Code to run.
   //}
-
-} 
+}
 
 function PlayMusic() {
-  if (!song.isPlaying()) {
-    song.play();
-    song.setVolume(0.3);
-    button.html("pause");
-    
+  if ( song.isPlaying() ) { 
+    song.stop();
   } else {
-    song.pause();     button.html("play");
+    song.play();
   }
-  
-
 }
