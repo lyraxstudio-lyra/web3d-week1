@@ -34,6 +34,8 @@ function draw() {
   model(shape);
 }
 
+
+//how do i clean the screen every like 5 go to keep it from lagging?
 class Particles {
   constructor() {
     this.pos = createVector(0, 0);
