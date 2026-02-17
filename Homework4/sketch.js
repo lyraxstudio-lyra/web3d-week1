@@ -34,9 +34,9 @@ function setup() {
 }
 
 function draw() {
-  //background(85, 67, 130);
+  background(85, 67, 130);
   lights();
-  //pointLight(237, 143, 237,0,0,lightZ);
+  pointLight(237, 143, 237,0,0,lightZ);
   push();
   translate(0, 0, 100);
 
