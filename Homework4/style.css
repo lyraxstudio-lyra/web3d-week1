@@ -83,3 +83,8 @@ div#button-holder button:active {
   /*display: flex;*/
   /*top: 50px;*/
 /*}*/
+
+div#sketch-holder{
+  position: fixed;
+  top: 50px;
+}

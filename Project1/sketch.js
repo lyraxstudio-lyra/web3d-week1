@@ -1,3 +1,5 @@
+let backgroundImg;
+let ImgW=200;
 var particles = [];
 var explosionProb = 0.99;
 var explosionNum = 30;
@@ -7,20 +9,30 @@ let cam;
 let x=100;
 let y=100;
 let z=600;
+let bx;
+let by;
+let bz=1200;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  cam = createCamera();
-  //cam.setPosition(x, y, z);
-}
 
 function preload() {
   shape = loadModel("Poeney2.obj", true);
+  backgroundImg = loadImage("OldDrawing.jpg");
 }
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  cam = createCamera();
+   cam.lookAt(0, 0, 0);
+  //cam.setPosition(x, y, z);
+}
+
 
 
 function draw() {
   background(48, 52, 52);
+      push();
+    translate(0,0,-100);
+    image(backgroundImg,-1000,-700);
+    pop();
    lights();
     
   
@@ -40,6 +52,7 @@ function draw() {
     //translate(x,-20,-100);
     orbitControl();
 
+
   push();
   let axis2 = [0, 0, 1];
   let axis1 = [1, 0, 0];
@@ -47,7 +60,14 @@ function draw() {
   rotate(-100, axis1);
   noStroke();
   scale(2);
-  fill(0);
+
+  ambientMaterial(238,75,43);
+  normalMaterial(238,75,43);
+  specularMaterial(238,75,43);
+
+  emissiveMaterial(238,75,43);
+  translate(-40,0,0);
+  stroke(0);
   model(shape);
   pop();
   cam.setPosition(x, y, z);
@@ -75,10 +95,13 @@ function draw() {
 if (keyIsDown(69) || keyIsDown(101)) {
   z += 5;
 }
-  if (particles.length >= 300) {
+  if (particles.length >= 100) {
    particles = [];
+    //filter(BLUR, 5);
   }
   console.log(x, y, z);
+  
+  bar(0,0,1000);
 }
 
 
@@ -98,12 +121,15 @@ class Particles {
     stroke(250);
     //fill(255);
     translate(this.pos.x, this.pos.y, this.pos.z);
-    noStroke();
-    fill(139,0, 0,20);
+
+    stroke(255,237,41);
+    fill(255,237,41,100);
     sphere(10);
-    //translate(20,20,20);
-    fill(255, 255, 224,10);
-    sphere(15);
+    noStroke();
+    translate(60,20,20);
+    fill(238,75,43,50);
+    sphere(40);
+    
     pop();
   }
 }
@@ -121,6 +147,12 @@ function mousePressed() {
     cam.lookAt(0, 0, 0);
     return false;
   }
+}
+
+
+function bar(x,y,z){
+  fill(238,75,43);
+  cylinder(10,2000);
 }
 
 
