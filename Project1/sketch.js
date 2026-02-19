@@ -1,12 +1,17 @@
 var particles = [];
 var explosionProb = 0.99;
-var explosionNum = 40;
+var explosionNum = 30;
 let shape;
 let snowflakes = [];
-let x;
+let cam;
+let x=100;
+let y=100;
+let z=600;
 
 function setup() {
-  createCanvas(0.8*windowWidth, 0.8*windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  cam = createCamera();
+  //cam.setPosition(x, y, z);
 }
 
 function preload() {
@@ -31,38 +36,53 @@ function draw() {
     particles[i].update();
     particles[i].show();
   }
-   filter(BLUR, 10);
-    translate(x,-20,-100);
+   //filter(BLUR, 5);
+    //translate(x,-20,-100);
     orbitControl();
 
-  //rotate
-  //let axis2 = [0, 0, 1];
-  //let axis1 = [1,0,0];
-  // rotate(160, axis2);
-  //rotate(-100,axis1);
-  //
-  //scale(2);
-  //model(shape);
-  
-  //if (particles.length >=100){
-  //particles.length(0);
-  //pop();
-     push(); 
+  push();
   let axis2 = [0, 0, 1];
-  let axis1 = [1,0,0];
-   rotate(160, axis2);
-  rotate(-100,axis1);
+  let axis1 = [1, 0, 0];
+  rotate(160, axis2);
+  rotate(-100, axis1);
   noStroke();
   scale(2);
-    fill(0);
+  fill(0);
   model(shape);
   pop();
+  cam.setPosition(x, y, z);
   
+  if (keyIsDown(65) || keyIsDown(97)) { // 'A' or 'a'
+    x -= 5;
+  }
 
+  if (keyIsDown(68) || keyIsDown(100)) { // 'D' or 'd'
+    x += 5;
+  }
+
+  if (keyIsDown(87) || keyIsDown(119)) { // 'W' or 'w'
+    y -= 5;
+  }
+
+  if (keyIsDown(83) || keyIsDown(115)) { // 'S' or 's'
+    y += 5;
+  }
+  
+  if (keyIsDown(81) || keyIsDown(113)) {
+  z -= 5;
+}
+
+if (keyIsDown(69) || keyIsDown(101)) {
+  z += 5;
+}
+  if (particles.length >= 300) {
+   particles = [];
+  }
+  console.log(x, y, z);
 }
 
 
-//how do i clean the screen every like 5 go to keep it from lagging?
+
 class Particles {
   constructor() {
     this.pos = createVector(0, 0);
@@ -76,12 +96,30 @@ class Particles {
   show() {
     push();
     stroke(250);
-    fill(255);
+    //fill(255);
     translate(this.pos.x, this.pos.y, this.pos.z);
     noStroke();
-    fill(255, 254, 207,60);
+    fill(139,0, 0,20);
     sphere(10);
+    //translate(20,20,20);
+    fill(255, 255, 224,10);
+    sphere(15);
     pop();
+  }
+}
+
+
+function textAppear(){
+  
+}
+
+function mousePressed() {
+  if (mouseButton === RIGHT) {
+    x = 100;
+    y = 100;
+    z = 600;  
+    cam.lookAt(0, 0, 0);
+    return false;
   }
 }
 
