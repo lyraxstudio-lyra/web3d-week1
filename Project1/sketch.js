@@ -150,9 +150,11 @@ function mousePressed() {
 }
 
 
-function bar(x,y,z){
+function bar(bx,by,bz){
+  translate(bx,by,bz);
   fill(238,75,43);
   cylinder(10,2000);
+
 }
 
 
