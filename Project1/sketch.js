@@ -28,7 +28,8 @@ function setup() {
 
 
 function draw() {
-  background(48, 52, 52);
+  //background(48, 52, 52);
+  background(0);
       push();
     translate(0,0,-100);
     image(backgroundImg,-1000,-700);
@@ -54,20 +55,21 @@ function draw() {
 
 
   push();
+  translate(0,0,90);
   let axis2 = [0, 0, 1];
   let axis1 = [1, 0, 0];
   rotate(160, axis2);
   rotate(-100, axis1);
   noStroke();
   scale(2);
-
   ambientMaterial(238,75,43);
   normalMaterial(238,75,43);
-  specularMaterial(238,75,43);
+  //specularMaterial(238,75,43);
 
   emissiveMaterial(238,75,43);
   translate(-40,0,0);
   stroke(0);
+
   model(shape);
   pop();
   cam.setPosition(x, y, z);
@@ -100,8 +102,18 @@ if (keyIsDown(69) || keyIsDown(101)) {
     //filter(BLUR, 5);
   }
   console.log(x, y, z);
+
   
+//I have question here
+//the loop for the bars to be at the z=1000; 
+//so when people zoom out with q,e, they will see something like a fence;
+  
+  //for (let i = 0; i < 20; i++){  
+  //  translate(bx,0,1000);
+  //  bx=bx+30;
+  //  bar(bx,by,1000);}
   bar(0,0,1000);
+
 }
 
 
@@ -153,7 +165,7 @@ function mousePressed() {
 function bar(bx,by,bz){
   translate(bx,by,bz);
   fill(238,75,43);
-  cylinder(10,2000);
+  cylinder(10,1500);
 
 }
 

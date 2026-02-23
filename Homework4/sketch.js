@@ -159,7 +159,7 @@ function PlayMusic() {
   } else {
     song.play();
   }
-  
+  window.open('https://lyraxstudio-lyra.github.io/web3d-week1/Homework1/');
 
 }
 
