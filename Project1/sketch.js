@@ -11,7 +11,8 @@ let y=100;
 let z=600;
 let bx;
 let by;
-let bz=1200;
+let bz;
+//let bz=1200;
 
 
 function preload() {
@@ -22,6 +23,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   cam = createCamera();
    cam.lookAt(0, 0, 0);
+   angleMode(DEGREES);
   //cam.setPosition(x, y, z);
 }
 
@@ -30,6 +32,7 @@ function setup() {
 function draw() {
   //background(48, 52, 52);
   background(0);
+  text("W A S D to move");
       push();
     translate(0,0,-100);
     image(backgroundImg,-1000,-700);
@@ -58,8 +61,8 @@ function draw() {
   translate(0,0,90);
   let axis2 = [0, 0, 1];
   let axis1 = [1, 0, 0];
-  rotate(160, axis2);
-  rotate(-100, axis1);
+  rotate(180, axis2);
+  rotate(40, axis1);
   noStroke();
   scale(2);
   ambientMaterial(238,75,43);
@@ -75,27 +78,27 @@ function draw() {
   cam.setPosition(x, y, z);
   
   if (keyIsDown(65) || keyIsDown(97)) { // 'A' or 'a'
-    x -= 5;
+    x -= 10;
   }
 
   if (keyIsDown(68) || keyIsDown(100)) { // 'D' or 'd'
-    x += 5;
+    x += 10;
   }
 
   if (keyIsDown(87) || keyIsDown(119)) { // 'W' or 'w'
-    y -= 5;
+    y -= 10;
   }
 
   if (keyIsDown(83) || keyIsDown(115)) { // 'S' or 's'
-    y += 5;
+    y += 10;
   }
   
-  if (keyIsDown(81) || keyIsDown(113)) {
-  z -= 5;
+  if (keyIsDown(81) || keyIsDown(113)) { //'q' or 'Q'
+  z -= 10;
 }
 
-if (keyIsDown(69) || keyIsDown(101)) {
-  z += 5;
+if (keyIsDown(69) || keyIsDown(101)) { //'e' or 'E'
+  z += 10;
 }
   if (particles.length >= 100) {
    particles = [];
@@ -107,16 +110,22 @@ if (keyIsDown(69) || keyIsDown(101)) {
 //I have question here
 //the loop for the bars to be at the z=1000; 
 //so when people zoom out with q,e, they will see something like a fence;
-  
-  //for (let i = 0; i < 20; i++){  
-  //  translate(bx,0,1000);
-  //  bx=bx+30;
-  //  bar(bx,by,1000);}
-  bar(0,0,1000);
-  bar(0,5,1000);
-  bar(0,10,1000);
-  bar(0,15,1000);
-  bar(0,20,1000);
+ push(); 
+translate(-2000,0,1000);
+  let axis3 = [0, 1, 0];
+  rotate(30, axis3);
+
+  for (let j = 0; j < 20; j++){  
+    bx=j*30;
+    //translate(0,by,0);
+    bar(bx,0,100);
+  }
+pop();
+  //bar(0,0,1000);
+  //bar(0,5,1000);
+  //bar(0,10,1000);
+  //bar(0,15,1000);
+  //bar(0,20,1000);
 
 }
 
@@ -161,6 +170,7 @@ function mousePressed() {
     y = 100;
     z = 600;  
     cam.lookAt(0, 0, 0);
+      particles = [];
     return false;
   }
 }
@@ -169,7 +179,7 @@ function mousePressed() {
 function bar(bx,by,bz){
   translate(bx,by,bz);
   fill(238,75,43);
-  cylinder(10,1500);
+  cylinder(20,30000);
 
 }
 
