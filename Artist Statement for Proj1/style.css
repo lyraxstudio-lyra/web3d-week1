@@ -14,3 +14,9 @@ body {
     align-items: center;    
   
 }
+
+a {
+  color: palevioletred;
+  position: relative;
+  font-size: 100;
+}
