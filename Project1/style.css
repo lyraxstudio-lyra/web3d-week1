@@ -31,9 +31,9 @@ div.title{
 }
 
 h1 {
+   font-style: italic;
     font-family: "Black Ops One", system-ui;
   font-weight: 400;
-  font-style: normal;
   color: greenyellow;
  /*
  top: 100px;
