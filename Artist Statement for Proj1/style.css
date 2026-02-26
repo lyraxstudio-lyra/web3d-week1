@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
+
+body {
+   /*align-content: center;*/
+  background-image: url(OldDrawing.jpg);
+  color: aquamarine;
+  font-family: "Bitcount Single", system-ui;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-size: auto;
+   display: flex;
+  gap: 20px;
+    justify-content: center; 
+    align-items: center;    
+  
+}
