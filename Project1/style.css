@@ -39,7 +39,6 @@ h1 {
  top: 100px;
  position: fixed;
  */
-
 }
 /*
 h1 {
@@ -63,4 +62,11 @@ h2 {
  top: 200px;
  */
 
+}
+
+a {
+  color: palevioletred;
+  position: relative;
+  font-size: 100;
+ font-size: 30px;
 }
