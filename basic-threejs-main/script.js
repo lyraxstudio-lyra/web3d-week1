@@ -56,7 +56,7 @@ function init() {
     const material1 = new THREE.MeshPhongMaterial({ color: 0x14401e, flatShading: true });
     const mesh = new THREE.InstancedMesh(geometry1, material1, 500);
     const tree = new THREE.Object3D();
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < 10; i++) {
         tree.position.x = Math.random() * 250 - 125;
         tree.position.y = 0;
         tree.position.z = Math.random() * 250 - 125;
