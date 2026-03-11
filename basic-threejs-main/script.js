@@ -48,8 +48,8 @@ function init() {
     // Add world geometry
 
     // Grouping of trees
-    const geometry1 = new THREE.OctahedronGeometry(10, 60, 8, 1);
-    const geometry2 = new THREE.TorusGeometry(10, 3, 16, 100);
+    const geometry1 = new THREE.OctahedronGeometry(30, 60, 8, 1);
+    const geometry2 = new THREE.TorusGeometry(100, 3, 16, 100);
     const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00 });
     const torus = new THREE.Mesh(geometry2, material2);
 
@@ -64,7 +64,9 @@ function init() {
         mesh.setMatrixAt(i, tree.matrix);
     }
     scene.add(mesh);
-        scene.add(torus);
+    scene.add(torus);
+    torus.rotateX(-1.5);
+    torus.translateZ(100);
 
     // Ground
     const earth = new THREE.PlaneGeometry(2000, 2000);
@@ -75,7 +77,7 @@ function init() {
     scene.add(mesh2);
 
     // lights
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
+    const dirLight1 = new THREE.DirectionalLight(0xffc8a1, 3);
     dirLight1.position.set(1, 1, 1);
     scene.add(dirLight1);
 
