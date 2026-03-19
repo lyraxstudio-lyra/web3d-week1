@@ -20,7 +20,6 @@ const direction = new THREE.Vector3();
 init();
 
 async function init() {
-
     // scene setup
     canvas = document.getElementById("3-holder");
     scene = new THREE.Scene();
@@ -32,7 +31,7 @@ async function init() {
     canvas.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 10, 20);
+    camera.position.set(0, 10, 40);
 
     // controls
     controls = new PointerLockControls(camera, document.body);
@@ -64,23 +63,79 @@ async function init() {
     directionalLight.position.set(20, 30, 10);
     scene.add(directionalLight);
 
-    // LOAD OBJ (but keep it invisible)
-    const loader = new OBJLoader();
-    const object = await loader.loadAsync("./src/boat1.obj");
+    // LOAD obj
+    const OBJloader = new OBJLoader();
+    const object1 = await OBJloader.loadAsync("./src/boat1.obj");
 
-    object.traverse((child) => {
+    object1.traverse((child) => {
         if (child.isMesh) {
             child.material = new THREE.MeshPhongMaterial({
-                color: 0x14401e,
-                flatShading: true,
+                color: 0x735839,
+                flatShading: true
             });
         }
     });
 
-    object.scale.set(5, 5, 5);
-    object.position.set(0, 0, 0);
+    object1.scale.set(5, 5, 5);
+    object1.position.set(0, 0, -80);
+    
+    const object2 = await OBJloader.loadAsync("./src/plate.obj");
 
-    scene.add(object);
+    object2.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshPhongMaterial({
+                color: 0x735839,
+                flatShading: true
+            });
+        }
+    });
+        object2.scale.set(10, 10,10);
+    object2.position.set(-15, 0, -40);
+    
+        const object3 = await OBJloader.loadAsync("./src/tree.obj");
+
+    object3.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshPhongMaterial({
+                color: 0x735839,
+                flatShading: true
+            });
+        }
+    });
+
+    object3.scale.set(5, 5, 5);
+    object3.position.set(40, -10, -120);
+
+
+    //add obj
+    scene.add(object1);
+    scene.add(object2);
+    scene.add(object3);
+    //bg
+    //const textureLoader = new THREE.TextureLoader();
+    //const texture = await textureLoader.loadAsync("./src/bg2.jpeg");
+    //
+    //
+    //const geometry = new THREE.PlaneGeometry(300, 200);
+    //const material = new THREE.MeshBasicMaterial({
+    //    map: texture,
+    //    side: THREE.DoubleSide
+    //});
+    //
+    //const plane = new THREE.Mesh(geometry, material);
+    //
+    //plane.position.set(0, 50, -50);
+    //
+    //scene.add(plane);
+
+    const textureLoader = new THREE.TextureLoader();
+    const envTexture = await textureLoader.loadAsync("./src/bg2.jpg");
+
+    envTexture.mapping = THREE.EquirectangularReflectionMapping;
+
+    scene.environment = envTexture;
+    scene.background = envTexture;
+    
 }
 
 function animate() {
