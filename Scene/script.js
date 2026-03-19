@@ -1,4 +1,5 @@
 import * as THREE from "three";
+//import { OBJLoader } from "./src/ObjectLoader.js";
 
 // The plug-in for orbit controls
 import { OrbitControls } from "./src/OrbitControls.js";
@@ -18,7 +19,9 @@ const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 
 init();
-function init() {
+async function init() {
+
+
     // scene setup
     canvas = document.getElementById("3-holder");
     scene = new THREE.Scene();
@@ -56,10 +59,16 @@ function init() {
         instructions.style.display = '';
 
     } );
-        scene.add( controls.object );
+        const loader = new OBJLoader();
+    
+await loader.loadAsync('./src/boat1.obj');
 
+scene.add( object );
+        scene.add( controls.object );
+    
 
 }
+
 function animate() {
     
     // Start First Person Control Animations
