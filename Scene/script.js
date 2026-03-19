@@ -1,13 +1,12 @@
 import * as THREE from "three";
-//import { OBJLoader } from "./src/ObjectLoader.js";
+import { OBJLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/OBJLoader.js";
 
-// The plug-in for orbit controls
+// Controls
 import { OrbitControls } from "./src/OrbitControls.js";
-
-// The plug-in for First Person Controls
 import { PointerLockControls } from "./src/PointerLockControls.js";
+
 let camera, canvas, controls, scene, renderer;
-let raycaster;
+
 let moveForward = false;
 let moveBackward = false;
 let moveLeft = false;
@@ -19,96 +18,100 @@ const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 
 init();
-async function init() {
 
+async function init() {
 
     // scene setup
     canvas = document.getElementById("3-holder");
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xbfeff5);
+
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    //renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(innerWidth, innerHeight);
     renderer.setAnimationLoop(animate);
     canvas.appendChild(renderer.domElement);
 
-
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 10, 0);
-    
-        controls = new PointerLockControls( camera, document.body );
+    camera.position.set(0, 10, 20);
 
-    const blocker = document.getElementById( 'blocker' );
-    const instructions = document.getElementById( 'instructions' );
+    // controls
+    controls = new PointerLockControls(camera, document.body);
 
-    instructions.addEventListener( 'click', function () {
+    const blocker = document.getElementById("blocker");
+    const instructions = document.getElementById("instructions");
 
+    instructions.addEventListener("click", function () {
         controls.lock();
+    });
 
-    } );
-     controls.addEventListener( 'lock', function () {
+    controls.addEventListener("lock", function () {
+        instructions.style.display = "none";
+        blocker.style.display = "none";
+    });
 
-        instructions.style.display = 'none';
-        blocker.style.display = 'none';
+    controls.addEventListener("unlock", function () {
+        blocker.style.display = "block";
+        instructions.style.display = "";
+    });
 
-    } );
+    scene.add(controls.object);
 
-    controls.addEventListener( 'unlock', function () {
+    // lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
 
-        blocker.style.display = 'block';
-        instructions.style.display = '';
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    directionalLight.position.set(20, 30, 10);
+    scene.add(directionalLight);
 
-    } );
-        const loader = new OBJLoader();
-    
-await loader.loadAsync('./src/boat1.obj');
+    // LOAD OBJ (but keep it invisible)
+    const loader = new OBJLoader();
+    const object = await loader.loadAsync("./src/boat1.obj");
 
-scene.add( object );
-        scene.add( controls.object );
-    
+    object.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshPhongMaterial({
+                color: 0x14401e,
+                flatShading: true,
+            });
+        }
+    });
 
+    object.scale.set(5, 5, 5);
+    object.position.set(0, 0, 0);
+
+    scene.add(object);
 }
 
 function animate() {
-    
-    // Start First Person Control Animations
     const time = performance.now();
-    if ( controls.isLocked === true ) {
-        const delta = ( time - prevTime ) / 1000;
+
+    if (controls.isLocked === true) {
+        const delta = (time - prevTime) / 1000;
 
         velocity.x -= velocity.x * 10.0 * delta;
         velocity.z -= velocity.z * 10.0 * delta;
+        velocity.y -= 9.8 * 100.0 * delta;
 
-        velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+        direction.z = Number(moveForward) - Number(moveBackward);
+        direction.x = Number(moveRight) - Number(moveLeft);
+        direction.normalize();
 
-        direction.z = Number( moveForward ) - Number( moveBackward );
-        direction.x = Number( moveRight ) - Number( moveLeft );
-        direction.normalize(); // this ensures consistent movements in all directions
+        if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
+        if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
 
-        if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0 * delta;
-        if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
+        controls.moveRight(-velocity.x * delta);
+        controls.moveForward(-velocity.z * delta);
 
-        controls.moveRight( - velocity.x * delta );
-        controls.moveForward( - velocity.z * delta );
-        
-        // jump fix
-        controls.object.position.y += ( velocity.y * delta );
-        if ( controls.object.position.y < 10 ) {
+        controls.object.position.y += velocity.y * delta;
+
+        if (controls.object.position.y < 10) {
             velocity.y = 0;
             controls.object.position.y = 10;
-
             canJump = true;
         }
     }
 
     prevTime = time;
-    // End First Person Control Animations
-    
-    render();
-}
-
-
-
-function render() {
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 }
