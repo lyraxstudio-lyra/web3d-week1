@@ -90,7 +90,7 @@ async function init() {
         }
     });
         object2.scale.set(10, 10,10);
-    object2.position.set(-15, 0, -40);
+    object2.position.set(-25, 0, -30);
     
         const object3 = await OBJloader.loadAsync("./src/tree.obj");
 
@@ -111,6 +111,7 @@ async function init() {
     scene.add(object1);
     scene.add(object2);
     scene.add(object3);
+    
     //bg
     //const textureLoader = new THREE.TextureLoader();
     //const texture = await textureLoader.loadAsync("./src/bg2.jpeg");
@@ -135,6 +136,21 @@ async function init() {
 
     scene.environment = envTexture;
     scene.background = envTexture;
+    
+const tex = await new THREE.TextureLoader().loadAsync("./src/waterSurface.jpeg");
+
+const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(400, 400),
+    new THREE.MeshStandardMaterial({
+        map: tex,
+        transparent: true,
+        opacity: 0.8   
+    })
+);
+
+plane.position.set(0, 0, 30);
+plane.rotation.x = -Math.PI / 2;
+scene.add(plane);
     
 }
 
