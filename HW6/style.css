@@ -9,9 +9,9 @@ body {
 }
 
 main {
-  padding-left: 10%;
-  padding-right: 10%;
-  max-width: 800px;
+  /*padding-left: 10%;*/
+  /*padding-right: 10%;*/
+  max-width: 500px;
   margin: auto;
 }
 
@@ -66,7 +66,10 @@ a:visited {
 }
 
 canvas {
-  display: block;
-  margin: auto;
-  padding-bottom: 20px;
+  left: 20px;
+  align-content: center;
+  position: absolute;
+  /*display: block;*/
+  /*margin: auto;*/
+  /*padding-bottom: 20px;*/
 }
