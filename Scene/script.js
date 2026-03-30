@@ -151,8 +151,13 @@ async function init() {
             });
         }
     });
+     
+    //const object2Line = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
+    //const objectLine = new THREE.Mesh(object2, object2Line);
     object2.scale.set(10, 10, 10);
     object2.position.set(-25, 0, -30);
+    //objectLine.scale.set(10, 10, 10);
+    //objectLine.position.set(-25, 0, -30);
 
     // obj3 tree
     const object3 = await OBJloader.loadAsync("./src/tree.obj");
@@ -199,10 +204,11 @@ async function init() {
 
     // add obj
     scene.add(object1);
-    scene.add(object2);
+   scene.add(object2);
     scene.add(object3);
     scene.add(object4);
     scene.add(object5);
+    //scene.add(objectLine);
 
     const textureLoader = new THREE.TextureLoader();
     const envTexture = await textureLoader.loadAsync("./src/bg2.jpg");
