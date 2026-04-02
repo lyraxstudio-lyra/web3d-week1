@@ -31,7 +31,7 @@ const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 
 let font;
-let text = "Room Demo";
+let text = "Did you practice?";
 let textGeo;
 let materials;
 let textMesh1;
@@ -46,7 +46,7 @@ async function init() {
     // scene setup
     canvas = document.getElementById("3-holder");
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xbfeff5);
+    scene.background = new THREE.Color(0x5f2828);
     //scene.fog = new THREE.FogExp2(0xbfeff5, 0.0015);
     renderer = new THREE.WebGLRenderer({ antialias: true });
     //renderer.setPixelRatio( window.devicePixelRatio );
@@ -209,7 +209,7 @@ async function init() {
     const loader = new TTFLoader();
 
     // use loader with desired ttf font
-    loader.load("./CourierPrime-Bold.ttf", function (json) {
+    loader.load("./WalterTurncoat-Regular.ttf", function (json) {
         font = new Font(json);
         // see create text function below
         createText();
@@ -218,6 +218,7 @@ async function init() {
     // add resulting shapes to scene
     group = new THREE.Group();
     group.position.y = 100;
+    group.position.z = -50;
 
     scene.add(group);
 
@@ -272,8 +273,8 @@ async function init() {
             });
         }
     });
-    chain.scale.set(1, 1, 1);
-    chain.position.set(0, 0, -80);
+    chain.scale.set(5, 5, 5);
+    chain.position.set(-15, 50, -300);
     chain.rotateY(1.6);
     scene.add(chain);
 
