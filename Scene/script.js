@@ -4,6 +4,7 @@ import { OBJLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/
 // Controls
 import { OrbitControls } from "./src/OrbitControls.js";
 import { PointerLockControls } from "./src/PointerLockControls.js";
+//import { GLTFLoader } from "./src/GLTFLoader.js";
 
 let camera, canvas, controls, scene, renderer;
 
@@ -124,6 +125,12 @@ async function init() {
 
     // LOAD obj
     const OBJloader = new OBJLoader();
+    const loader = new FBXLoader();
+
+//
+//const objectChain = await loader.loadAsync( './src/Chains2.gltf' );
+//        objectChain.scale.set(5, 5, 5);
+//    objectChain.position.set(0, 0, -80);
 
     // obj1 boat
     const object1 = await OBJloader.loadAsync("./src/boat1.obj");
@@ -208,6 +215,7 @@ async function init() {
     scene.add(object3);
     scene.add(object4);
     scene.add(object5);
+    //scene.add( objectChain );
     //scene.add(objectLine);
 
     const textureLoader = new THREE.TextureLoader();
