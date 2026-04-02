@@ -186,7 +186,7 @@ async function init() {
 
     const cielingMat = new THREE.MeshPhongMaterial({
         color: 0xfffdf8,
-        transparancy: true,
+        transparent: true,
         opacity: 0.4
     });
     const cielingShape = new THREE.BoxGeometry(300, 10, 500);
@@ -224,17 +224,19 @@ async function init() {
     // image
 
     // load image as a texture
-    const imgSource = new THREE.TextureLoader().load("./cab-curio-1.jpg");
+    const imgSource = new THREE.TextureLoader().load("./src/violin.png");
     // use loaded testure in a material
     const imgMaterial = new THREE.MeshBasicMaterial({
         map: imgSource,
-        side: THREE.DoubleSide
+        transparent: true,
+        side: THREE.DoubleSide,
     });
     // create image shape (should be the same aspect ratio as the image)
-    const imgGeometry = new THREE.PlaneGeometry(400, 300);
+    const imgGeometry = new THREE.PlaneGeometry(500, 1000);
     // apply image to shape and add to scene
     const imgPlane = new THREE.Mesh(imgGeometry, imgMaterial);
-    imgPlane.position.set(0, 100, -400);
+    imgPlane.position.set(0, 400, -400);
+    //imgPlane.rotateX(-0.6);
     scene.add(imgPlane);
 
     // Ground
@@ -272,6 +274,7 @@ async function init() {
     });
     chain.scale.set(1, 1, 1);
     chain.position.set(0, 0, -80);
+    chain.rotateY(1.6);
     scene.add(chain);
 
     // lights
