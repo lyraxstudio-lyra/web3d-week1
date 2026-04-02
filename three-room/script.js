@@ -146,7 +146,7 @@ async function init() {
 
     // room material
     const wall = new THREE.MeshPhongMaterial({
-        color: 0xff6a6a,
+        color: 0xff6a6a
         //transparancy: true,
         //opacity: 0.4
     });
@@ -193,7 +193,21 @@ async function init() {
     const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
     cielingMain.position.set(0, 100, 0);
     scene.add(cielingMain);
+    //chair
+    const tex2 = await new THREE.TextureLoader().loadAsync("./src/wood.jpg");
+    const chair = new THREE.MeshPhongMaterial({
+        map: tex2
+    });
+    const seat = new THREE.BoxGeometry(100, 100, 150);
+    const Bottomseat = new THREE.Mesh(seat, chair);
+    Bottomseat.rotateX(2);
+    Bottomseat.position.set(-10, 5, -300);
+    scene.add(Bottomseat);
 
+    //const longWall = new THREE.BoxGeometry(10, 200, 510);
+    //const leftWall = new THREE.Mesh(longWall, wall);
+    //leftWall.position.set(-150, 0, 0);
+    //scene.add(leftWall);
     // text
 
     // materials for the text
@@ -230,7 +244,7 @@ async function init() {
     const imgMaterial = new THREE.MeshBasicMaterial({
         map: imgSource,
         transparent: true,
-        side: THREE.DoubleSide,
+        side: THREE.DoubleSide
     });
     // create image shape (should be the same aspect ratio as the image)
     const imgGeometry = new THREE.PlaneGeometry(500, 1000);
