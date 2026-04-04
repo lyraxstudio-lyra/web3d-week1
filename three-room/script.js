@@ -56,7 +56,7 @@ async function init() {
 
     // Setup camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 10, 0);
+    camera.position.set(0, 10, 100);
 
     // Setup First Person Controls
     // DO NOT TOUCH
@@ -145,8 +145,10 @@ async function init() {
     // Add world geometry
 
     // room material
+    const paint1 = await new THREE.TextureLoader().loadAsync("./src/wall1.jpg");
     const wall = new THREE.MeshPhongMaterial({
-        color: 0xff6a6a
+        //color: 0xff6a6a
+        map: paint1
         //transparancy: true,
         //opacity: 0.4
     });
@@ -158,58 +160,106 @@ async function init() {
     //scene.add(backWall);
 
     // side walls
-    const longWall = new THREE.BoxGeometry(10, 200, 510);
+    const longWall = new THREE.BoxGeometry(10, 400, 700);
     const leftWall = new THREE.Mesh(longWall, wall);
-    leftWall.position.set(-150, 0, 0);
+    leftWall.position.set(-350, 0, 0);
     scene.add(leftWall);
 
     const rightWall = new THREE.Mesh(longWall, wall);
-    rightWall.position.set(150, 0, 0);
+    rightWall.position.set(350, 0, 0);
     scene.add(rightWall);
 
     // front walls
-    const frontSide = new THREE.BoxGeometry(100, 125, 10);
-    const frontLeft = new THREE.Mesh(frontSide, wall);
-    frontLeft.position.set(-100, -20, 250);
-    scene.add(frontLeft);
-
-    const frontRight = new THREE.Mesh(frontSide, wall);
-    frontRight.position.set(100, -20, 250);
-    scene.add(frontRight);
-
-    const frontTop = new THREE.BoxGeometry(300, 57.5, 10);
-    const frontMiddle = new THREE.Mesh(frontTop, wall);
-    frontMiddle.position.set(0, 70, 250);
-    scene.add(frontMiddle);
+    //const frontSide = new THREE.BoxGeometry(400, 125, 10);
+    //const frontLeft = new THREE.Mesh(frontSide, wall);
+    //frontLeft.position.set(10, -20, 250);
+    ////scene.add(frontLeft);
+//
+    //const frontRight = new THREE.Mesh(frontSide, wall);
+    //frontRight.position.set(100, -20, 250);
+    //scene.add(frontRight);
+//
+    //const frontTop = new THREE.BoxGeometry(300, 57.5, 10);
+    //const frontMiddle = new THREE.Mesh(frontTop, wall);
+    //frontMiddle.position.set(0, 70, 250);
+    //scene.add(frontMiddle);
 
     // ceiling
-
+const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
     const cielingMat = new THREE.MeshPhongMaterial({
-        color: 0xfffdf8,
-        transparent: true,
-        opacity: 0.4
+        //color: 0xfffdf8,
+        map: paint2,
+        //transparent: true,
+        //opacity: 0.4
     });
-    const cielingShape = new THREE.BoxGeometry(300, 10, 500);
+    const cielingShape = new THREE.BoxGeometry(700, 10, 700);
     const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
-    cielingMain.position.set(0, 100, 0);
+    cielingMain.position.set(0, 200, 0);
     scene.add(cielingMain);
+
     //chair
-    const tex2 = await new THREE.TextureLoader().loadAsync("./src/wood.jpg");
+
+    const tex2 = await new THREE.TextureLoader().loadAsync("./src/ground.jpg");
     const chair = new THREE.MeshPhongMaterial({
         map: tex2
     });
-    const seat = new THREE.BoxGeometry(100, 100, 150);
-    const Bottomseat = new THREE.Mesh(seat, chair);
-    Bottomseat.rotateX(2);
+    const seat1 = new THREE.BoxGeometry(100, 10, 80);
+    const Bottomseat = new THREE.Mesh(seat1, chair);
+    //Bottomseat.rotateX(2);
     Bottomseat.position.set(-10, 5, -300);
     scene.add(Bottomseat);
+
+    //const seat2 = new THREE.BoxGeometry(100, 10, 80);
+    const Backseat = new THREE.Mesh(seat1, chair);
+    Backseat.position.set(-10, 50, -340);
+    Backseat.rotateX(1.5);
+    scene.add(Backseat);
+
+    const seat2 = new THREE.BoxGeometry(10, 10, 65);
+    const Leg1 = new THREE.Mesh(seat2, chair);
+    Leg1.position.set(-40, -30, -280);
+    Leg1.rotateX(1.5);
+    scene.add(Leg1);
+
+    const Leg2 = new THREE.Mesh(seat2, chair);
+    Leg2.position.set(20, -30, -280);
+    Leg2.rotateX(1.5);
+    scene.add(Leg2);
+
+    const Leg3 = new THREE.Mesh(seat2, chair);
+    Leg3.position.set(20, -30, -330);
+    Leg3.rotateX(-1.5);
+    scene.add(Leg3);
+
+    const Leg4 = new THREE.Mesh(seat2, chair);
+    Leg4.position.set(-40, -30, -330);
+    Leg4.rotateX(-1.5);
+    scene.add(Leg4);
+    
+    const group2 = new THREE.Group();
+    group2.add(Bottomseat);
+    group2.add(Backseat);
+    group2.add(Leg1);
+    group2.add(Leg2);
+    group2.add(Leg3);
+    group2.add(Leg4);
+    
+    group2.rotateY(0.8);
+    //group2.position.x = 10;
+    group2.position.y = -25;
+    scene.add(group2);
 
     //const longWall = new THREE.BoxGeometry(10, 200, 510);
     //const leftWall = new THREE.Mesh(longWall, wall);
     //leftWall.position.set(-150, 0, 0);
     //scene.add(leftWall);
     // text
+    //text group
+    group = new THREE.Group();
+    group.position.y = 100;
+    group.position.z = -50;
 
+    scene.add(group);
     // materials for the text
     materials = [
         new THREE.MeshPhongMaterial({
@@ -230,11 +280,6 @@ async function init() {
     });
 
     // add resulting shapes to scene
-    group = new THREE.Group();
-    group.position.y = 100;
-    group.position.z = -50;
-
-    scene.add(group);
 
     // image
 
@@ -244,19 +289,24 @@ async function init() {
     const imgMaterial = new THREE.MeshBasicMaterial({
         map: imgSource,
         transparent: true,
+        //depth: 100,
         side: THREE.DoubleSide
     });
     // create image shape (should be the same aspect ratio as the image)
     const imgGeometry = new THREE.PlaneGeometry(500, 1000);
     // apply image to shape and add to scene
     const imgPlane = new THREE.Mesh(imgGeometry, imgMaterial);
-    imgPlane.position.set(0, 400, -400);
-    //imgPlane.rotateX(-0.6);
+    imgPlane.position.set(0, 350, -600);
+    imgPlane.rotateZ(-0.6);
     scene.add(imgPlane);
 
     // Ground
     const earth = new THREE.PlaneGeometry(4000, 4000);
-    const ground = new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true });
+    const floor = await new THREE.TextureLoader().loadAsync("./src/wood.jpg");
+    const ground = new THREE.MeshPhongMaterial({ 
+        color: 0xffffff, 
+        map:floor,
+        flatShading: true });
     const mesh2 = new THREE.InstancedMesh(earth, ground, 500);
     mesh2.translateY(-80);
     mesh2.rotateX(-1.5708);
@@ -287,17 +337,17 @@ async function init() {
             });
         }
     });
-    chain.scale.set(5, 5, 5);
-    chain.position.set(-15, 50, -300);
+    chain.scale.set(7, 7, 7);
+    chain.position.set(-15, 100, -460);
     chain.rotateY(1.6);
     scene.add(chain);
 
     // lights
-    const dirLight1 = new THREE.DirectionalLight(0xff8a8a, 4);
+    const dirLight1 = new THREE.DirectionalLight(0xff8867, 2);
     dirLight1.position.set(1, 1, 1);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0xfff283, 2);
+    const dirLight2 = new THREE.DirectionalLight(0xf9f9f9, 4);
     dirLight2.position.set(-1, -1, -1);
     scene.add(dirLight2);
 
@@ -313,8 +363,8 @@ function animate() {
     if (controls.isLocked === true) {
         const delta = (time - prevTime) / 1000;
 
-        velocity.x -= velocity.x * 10.0 * delta;
-        velocity.z -= velocity.z * 10.0 * delta;
+        velocity.x -= velocity.x * 2.0 * delta;
+        velocity.z -= velocity.z * 2.0 * delta;
 
         velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
 
@@ -355,10 +405,10 @@ function createText() {
     // "text" on next line is the message to be written
     textGeo = new TextGeometry(text, {
         font: font,
-        size: 20,
-        depth: 10,
-        curveSegments: 4,
-        bevelThickness: 2,
+        size: 30,
+        depth: 5,
+        curveSegments: 6,
+        bevelThickness: 4,
         bevelSize: 1.5,
         bevelEnabled: true
     });

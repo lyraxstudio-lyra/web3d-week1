@@ -125,7 +125,7 @@ async function init() {
 
     // LOAD obj
     const OBJloader = new OBJLoader();
-    const loader = new FBXLoader();
+    //const loader = new FBXLoader();
 
 //
 //const objectChain = await loader.loadAsync( './src/Chains2.gltf' );
