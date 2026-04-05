@@ -31,7 +31,7 @@ const velocity = new THREE.Vector3();
 const direction = new THREE.Vector3();
 
 let font;
-let text = "Did you practice?";
+let text = "Did you practice today?";
 let textGeo;
 let materials;
 let textMesh1;
@@ -56,7 +56,7 @@ async function init() {
 
     // Setup camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 10, 100);
+    camera.position.set(0, 10, 200);
 
     // Setup First Person Controls
     // DO NOT TOUCH
@@ -245,7 +245,7 @@ const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
     group2.add(Leg4);
     
     group2.rotateY(0.8);
-    //group2.position.x = 10;
+    group2.position.x = -20;
     group2.position.y = -25;
     scene.add(group2);
 
