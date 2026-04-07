@@ -42,7 +42,7 @@ let group;
 init();
 
 // Define initial scene
-function init() {
+async function init() {
     // scene setup
     canvas = document.getElementById("3-holder");
     scene = new THREE.Scene();
@@ -145,7 +145,7 @@ function init() {
     // Add world geometry
 
     // room material
-    const paint1 = new THREE.TextureLoader().load("./src/wall1.jpg");
+    const paint1 = await new THREE.TextureLoader().loadAsync("./src/wall1.jpg");
     const wall = new THREE.MeshPhongMaterial({
         //color: 0xff6a6a
         map: paint1
@@ -185,7 +185,7 @@ function init() {
     //scene.add(frontMiddle);
 
     // ceiling
-    const paint2 = new THREE.TextureLoader().load("./src/wall2.jpg");
+const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
     const cielingMat = new THREE.MeshPhongMaterial({
         //color: 0xfffdf8,
         map: paint2,
@@ -199,7 +199,7 @@ function init() {
 
     //chair
 
-    const tex2 = new THREE.TextureLoader().load("./src/ground.jpg");
+    const tex2 = await new THREE.TextureLoader().loadAsync("./src/ground.jpg");
     const chair = new THREE.MeshPhongMaterial({
         map: tex2
     });
@@ -302,7 +302,7 @@ function init() {
 
     // Ground
     const earth = new THREE.PlaneGeometry(4000, 4000);
-    const floor = new THREE.TextureLoader().load("./src/wood.jpg");
+    const floor = await new THREE.TextureLoader().loadAsync("./src/wood.jpg");
     const ground = new THREE.MeshPhongMaterial({ 
         color: 0xffffff, 
         map:floor,
@@ -322,8 +322,8 @@ function init() {
     //    objectChain.position.set(0, 0, -80);
 
     // chain
-    const chain = OBJloader.load("./src/chains.obj");
-    const tex = new THREE.TextureLoader().load("./src/Rust.jpg");
+    const chain = await OBJloader.loadAsync("./src/chains.obj");
+    const tex = await new THREE.TextureLoader().loadAsync("./src/Rust.jpg");
     chain.traverse((child) => {
         if (child.isMesh) {
             child.material = new THREE.MeshStandardMaterial({
@@ -355,9 +355,10 @@ function init() {
     //scene.add(ambientLight);
 }
 
-
+// Function to update moving objects, in this case the camera.
+// The render function is trigger at the end to update the canvas.
 function animate() {
-
+    // Start First Person Control Animations
     const time = performance.now();
     if (controls.isLocked === true) {
         const delta = (time - prevTime) / 1000;
@@ -365,7 +366,7 @@ function animate() {
         velocity.x -= velocity.x * 2.0 * delta;
         velocity.z -= velocity.z * 2.0 * delta;
 
-        velocity.y -= 9.8 * 100.0 * delta; 
+        velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
 
         direction.z = Number(moveForward) - Number(moveBackward);
         direction.x = Number(moveRight) - Number(moveLeft);
