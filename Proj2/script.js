@@ -160,14 +160,14 @@ function init() {
     //scene.add(backWall);
 
     // side walls
-    const longWall = new THREE.BoxGeometry(10, 400, 700);
-    const leftWall = new THREE.Mesh(longWall, wall);
-    leftWall.position.set(-350, 0, 0);
-    scene.add(leftWall);
-
-    const rightWall = new THREE.Mesh(longWall, wall);
-    rightWall.position.set(350, 0, 0);
-    scene.add(rightWall);
+    //const longWall = new THREE.BoxGeometry(10, 400, 700);
+    //const leftWall = new THREE.Mesh(longWall, wall);
+    //leftWall.position.set(-350, 0, 0);
+    //scene.add(leftWall);
+//
+    //const rightWall = new THREE.Mesh(longWall, wall);
+    //rightWall.position.set(350, 0, 0);
+    //scene.add(rightWall);
 
     // front walls
     //const frontSide = new THREE.BoxGeometry(400, 125, 10);
@@ -186,16 +186,16 @@ function init() {
 
     // ceiling
     const paint2 = new THREE.TextureLoader().load("./src/wall2.jpg");
-    const cielingMat = new THREE.MeshPhongMaterial({
-        //color: 0xfffdf8,
-        map: paint2,
-        //transparent: true,
-        //opacity: 0.4
-    });
-    const cielingShape = new THREE.BoxGeometry(700, 10, 700);
-    const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
-    cielingMain.position.set(0, 200, 0);
-    scene.add(cielingMain);
+    //const cielingMat = new THREE.MeshPhongMaterial({
+    //    //color: 0xfffdf8,
+    //    map: paint2,
+    //    //transparent: true,
+    //    //opacity: 0.4
+    //});
+    //const cielingShape = new THREE.BoxGeometry(700, 10, 700);
+    //const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
+    //cielingMain.position.set(0, 200, 0);
+    //scene.add(cielingMain);
 
     //chair
 
@@ -207,34 +207,28 @@ function init() {
     const Bottomseat = new THREE.Mesh(seat1, chair);
     //Bottomseat.rotateX(2);
     Bottomseat.position.set(-10, 5, -300);
-    scene.add(Bottomseat);
 
     //const seat2 = new THREE.BoxGeometry(100, 10, 80);
     const Backseat = new THREE.Mesh(seat1, chair);
     Backseat.position.set(-10, 50, -340);
     Backseat.rotateX(1.5);
-    scene.add(Backseat);
 
     const seat2 = new THREE.BoxGeometry(10, 10, 65);
     const Leg1 = new THREE.Mesh(seat2, chair);
     Leg1.position.set(-40, -30, -280);
     Leg1.rotateX(1.5);
-    scene.add(Leg1);
 
     const Leg2 = new THREE.Mesh(seat2, chair);
     Leg2.position.set(20, -30, -280);
     Leg2.rotateX(1.5);
-    scene.add(Leg2);
 
     const Leg3 = new THREE.Mesh(seat2, chair);
     Leg3.position.set(20, -30, -330);
     Leg3.rotateX(-1.5);
-    scene.add(Leg3);
 
     const Leg4 = new THREE.Mesh(seat2, chair);
     Leg4.position.set(-40, -30, -330);
     Leg4.rotateX(-1.5);
-    scene.add(Leg4);
     
     const group2 = new THREE.Group();
     group2.add(Bottomseat);
@@ -305,10 +299,11 @@ function init() {
     const floor = new THREE.TextureLoader().load("./src/wood.jpg");
     const ground = new THREE.MeshPhongMaterial({ 
         color: 0xffffff, 
-        map:floor,
-        flatShading: true });
-    const mesh2 = new THREE.InstancedMesh(earth, ground, 500);
-    mesh2.translateY(-80);
+        map: floor,
+        flatShading: true
+    });
+    const mesh2 = new THREE.InstancedMesh(earth, ground, 1);
+    mesh2.position.y = -80;
     mesh2.rotateX(-1.5708);
     scene.add(mesh2);
 
@@ -322,25 +317,26 @@ function init() {
     //    objectChain.position.set(0, 0, -80);
 
     // chain
-    const chain = OBJloader.load("./src/chains.obj");
     const tex = new THREE.TextureLoader().load("./src/Rust.jpg");
-    chain.traverse((child) => {
-        if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({
-                map: tex,
-                roughness: 1,
-                metalness: 1,
-                emissive: 0x000000
-                //Reflect: 0;
-                //transparent: true,
-                //opacity: 0.8
-            });
-        }
+    OBJloader.load("./src/chains.obj", function (chain) {
+        chain.traverse((child) => {
+            if (child.isMesh) {
+                child.material = new THREE.MeshStandardMaterial({
+                    map: tex,
+                    roughness: 1,
+                    metalness: 1,
+                    emissive: 0x000000
+                    //Reflect: 0;
+                    //transparent: true,
+                    //opacity: 0.8
+                });
+            }
+        });
+        chain.scale.set(7, 7, 7);
+        chain.position.set(-15, 100, -460);
+        chain.rotateY(1.6);
+        scene.add(chain);
     });
-    chain.scale.set(7, 7, 7);
-    chain.position.set(-15, 100, -460);
-    chain.rotateY(1.6);
-    scene.add(chain);
 
     // lights
     const dirLight1 = new THREE.DirectionalLight(0xff8867, 2);
@@ -355,8 +351,6 @@ function init() {
     //scene.add(ambientLight);
 }
 
-// Function to update moving objects, in this case the camera.
-// The render function is trigger at the end to update the canvas.
 function animate() {
     // Start First Person Control Animations
     const time = performance.now();
