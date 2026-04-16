@@ -44,7 +44,7 @@ let group3;
 
 // for exposure slider
 const params = {
-    exposure: 2.0
+    exposure: 1.0
 };
 
 // Run the "init" function which is like "setup" in p5.
@@ -232,18 +232,18 @@ function init() {
 
     group2.rotateY(0.8);
     group2.scale.set(1.5, 1.5, 1.5);
-    group2.position.x = 80;
-    group2.position.y = -200;
+    group2.position.x = 10;
+    group2.position.y = -300;
     group2.position.z = -130;
 
     scene.add(group2);
-    
-   const group3 = group2.clone();
-group3.scale.set(3, 3, 3);
-group3.rotation.set(Math.PI, -0.8, 0);
-group3.position.set(100, 300, -1000);
 
-scene.add(group3);
+    const group3 = group2.clone();
+    group3.scale.set(3, 3, 3);
+    group3.rotation.set(Math.PI, -0.8, 0);
+    group3.position.set(100, 500, -1000);
+
+    scene.add(group3);
 
     //chair 2
     //const group3 = new THREE.Group();
@@ -309,10 +309,25 @@ scene.add(group3);
     const imgGeometry = new THREE.PlaneGeometry(500, 1000);
     // apply image to shape and add to scene
     const imgPlane = new THREE.Mesh(imgGeometry, imgMaterial);
-    imgPlane.position.set(0, 50, -350);
+    imgPlane.position.set(0, -100, -550);
     imgPlane.rotateZ(-0.6);
-    imgPlane.scale.set(0.5, 0.5, 0.5);
+    imgPlane.scale.set(1, 1, 1);
     scene.add(imgPlane);
+
+    const imgPlane2 = imgPlane.clone();
+    imgPlane2.scale.set(1.3, 1.3, 1.3);
+     imgPlane2.rotateZ(Math.PI / 2);
+    imgPlane2.rotateX(Math.PI / 2);
+   
+    imgPlane2.position.set(750, -100, 0);
+    scene.add(imgPlane2);
+    
+        const imgPlane3 = imgPlane.clone();
+    imgPlane3.scale.set(1, 1, 1);
+    imgPlane3.rotateZ(Math.PI / 2);
+    //imgPlane3.rotateX(Math.PI / 2);
+    imgPlane3.position.set(20, 0, -800);
+    scene.add(imgPlane3);
 
     // Ground
     const earth = new THREE.PlaneGeometry(2000, 2000);
@@ -372,14 +387,14 @@ scene.add(group3);
     //    transmission: 0
     //    //envMap: ,
     //});
-//
+    //
     //OBJloader.load("./src/ring1.obj", function (ring1) {
     //    ring1.traverse((child) => {
     //        if (child.isMesh) {
     //            child.material = mirrorMat;
     //        }
     //    });
-//
+    //
     //    ring1.scale.set(600, 600, 600);
     //    ring1.position.set(0, 550, 0);
     //    ring1.rotateY(1.6);
@@ -409,11 +424,11 @@ scene.add(group3);
     //
 
     // lights
-    const dirLight1 = new THREE.DirectionalLight(0xff8867, 2);
+    const dirLight1 = new THREE.DirectionalLight(0xfffcfb, 5);
     dirLight1.position.set(1, 1, 1);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0xf9f9f9, 4);
+    const dirLight2 = new THREE.DirectionalLight(0xff0000, 4);
     dirLight2.position.set(-1, -1, -1);
     scene.add(dirLight2);
 }
