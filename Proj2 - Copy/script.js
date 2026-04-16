@@ -64,29 +64,29 @@ function init() {
     renderer.toneMapping = THREE.ReinhardToneMapping;
     renderer.toneMappingExposure = params.exposure;
     canvas.appendChild(renderer.domElement);
- // HDR Basic
+    // HDR Basic
 
-   new THREE.TextureLoader().load("./src/bg2.jpeg", function (texture) {
-    const material1 = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.DoubleSide
+    new THREE.TextureLoader().load("./src/bg2.jpeg", function (texture) {
+        const material1 = new THREE.MeshBasicMaterial({
+            map: texture,
+            side: THREE.DoubleSide
+        });
+
+        const sphere = new THREE.SphereGeometry(1000, 50, 50);
+
+        const mesh = new THREE.Mesh(sphere, material1);
+
+        scene.add(mesh);
+
+        render();
     });
 
-    const sphere = new THREE.SphereGeometry(1000, 50, 50);
-
-    const mesh = new THREE.Mesh(sphere, material1);
-
-    scene.add(mesh);
-
-    render();
-});
-    
     // Setup camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
     camera.position.set(0, 10, 200);
 
     //load wallpaper
-   const paint1 = new THREE.TextureLoader().load("./src/wall1.jpg");
+    const paint1 = new THREE.TextureLoader().load("./src/wall1.jpg");
     // Setup First Person Controls
     // DO NOT TOUCH
 
@@ -110,11 +110,11 @@ function init() {
     });
 
     scene.add(controls.object);
-    
+
     const gui = new GUI();
     gui.add(params, "exposure", 0, 4, 0.01).onChange(render);
     gui.open();
-    
+
     const onKeyDown = function (event) {
         switch (event.code) {
             case "ArrowUp":
@@ -178,7 +178,7 @@ function init() {
     // Add world geometry
 
     // room material
- 
+
     const wall = new THREE.MeshPhongMaterial({
         //color: 0xff6a6a
         map: paint1
@@ -186,9 +186,7 @@ function init() {
         //opacity: 0.4
     });
 
-
     const paint2 = new THREE.TextureLoader().load("./src/wall2.jpg");
-
 
     //chair
 
@@ -223,7 +221,7 @@ function init() {
     Leg4.position.set(-40, -30, -330);
     Leg4.rotateX(-1.5);
     //chair 1
-    
+
     const group2 = new THREE.Group();
     group2.add(Bottomseat);
     group2.add(Backseat);
@@ -231,15 +229,22 @@ function init() {
     group2.add(Leg2);
     group2.add(Leg3);
     group2.add(Leg4);
-    
+
     group2.rotateY(0.8);
     group2.scale.set(1.5, 1.5, 1.5);
     group2.position.x = 80;
     group2.position.y = -200;
     group2.position.z = -130;
-   
+
     scene.add(group2);
     
+   const group3 = group2.clone();
+group3.scale.set(3, 3, 3);
+group3.rotation.set(Math.PI, -0.8, 0);
+group3.position.set(100, 300, -1000);
+
+scene.add(group3);
+
     //chair 2
     //const group3 = new THREE.Group();
     //group3.add(Bottomseat);
@@ -312,8 +317,8 @@ function init() {
     // Ground
     const earth = new THREE.PlaneGeometry(2000, 2000);
     const floor = new THREE.TextureLoader().load("./src/wood.jpg");
-    const ground = new THREE.MeshPhongMaterial({ 
-        color: 0xffffff, 
+    const ground = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
         map: floor,
         flatShading: true
     });
@@ -351,55 +356,59 @@ function init() {
         chain.position.set(-15, 100, -460);
         chain.rotateY(1.6);
         scene.add(chain);
-        
-        
+
+        const chain2 = chain.clone();
+        chain2.scale.set(20, 20, 20);
+        chain2.position.set(30, 100, 300);
+        chain.rotateY(-0.6);
+        scene.add(chain2);
     });
 
- const mirrorMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    emissive: 0x000000,
-    roughness: 0,
-    metalness: 1,
-    transmission: 0,
-    //envMap: ,
-});
-
-OBJloader.load("./src/ring1.obj", function (ring1) {
-    ring1.traverse((child) => {
-        if (child.isMesh) {
-            child.material = mirrorMat;
-        }
-    });
-
-    ring1.scale.set(600, 600, 600);
-    ring1.position.set(0, 550, 0);
-    ring1.rotateY(1.6);
-    scene.add(ring1);
-});
-    
-//OBJloader.load("./src/ring2.obj", function (ring2) {
-//    ring2.traverse((child) => {
-//        if (child.isMesh) {
-//            child.material = new THREE.MeshStandardMaterial({
-//                //envMap: reflectCube,
-//                color: 0xffa1a1,
-//                //roughness: 0,
-//                //metalness: 1,
-//                emissive: 0x00a7ff,
-//                transparancy: true,
-//                opacity: 0.2
-//            });
-//        }
-//    });
+    //const mirrorMat = new THREE.MeshPhysicalMaterial({
+    //    color: 0x000000,
+    //    emissive: 0xff2121,
+    //    roughness: 0,
+    //    metalness: 1,
+    //    transmission: 0
+    //    //envMap: ,
+    //});
 //
-//    ring2.scale.set(400, 400, 600);
-//    ring2.position.set(-100, 400, -630);
-//    ring2.rotateX(1.6);
-//    scene.add(ring2);
-//});
-//    
+    //OBJloader.load("./src/ring1.obj", function (ring1) {
+    //    ring1.traverse((child) => {
+    //        if (child.isMesh) {
+    //            child.material = mirrorMat;
+    //        }
+    //    });
+//
+    //    ring1.scale.set(600, 600, 600);
+    //    ring1.position.set(0, 550, 0);
+    //    ring1.rotateY(1.6);
+    //    scene.add(ring1);
+    //});
 
-// lights
+    //OBJloader.load("./src/ring2.obj", function (ring2) {
+    //    ring2.traverse((child) => {
+    //        if (child.isMesh) {
+    //            child.material = new THREE.MeshStandardMaterial({
+    //                //envMap: reflectCube,
+    //                color: 0xffa1a1,
+    //                //roughness: 0,
+    //                //metalness: 1,
+    //                emissive: 0x00a7ff,
+    //                transparancy: true,
+    //                opacity: 0.2
+    //            });
+    //        }
+    //    });
+    //
+    //    ring2.scale.set(400, 400, 600);
+    //    ring2.position.set(-100, 400, -630);
+    //    ring2.rotateX(1.6);
+    //    scene.add(ring2);
+    //});
+    //
+
+    // lights
     const dirLight1 = new THREE.DirectionalLight(0xff8867, 2);
     dirLight1.position.set(1, 1, 1);
     scene.add(dirLight1);
@@ -407,7 +416,6 @@ OBJloader.load("./src/ring1.obj", function (ring1) {
     const dirLight2 = new THREE.DirectionalLight(0xf9f9f9, 4);
     dirLight2.position.set(-1, -1, -1);
     scene.add(dirLight2);
-    
 }
 
 function animate() {
@@ -449,7 +457,7 @@ function animate() {
 
 // Function to render the scene using the camera.
 function render() {
-        renderer.toneMappingExposure = params.exposure;
+    renderer.toneMappingExposure = params.exposure;
     renderer.render(scene, camera);
 }
 
