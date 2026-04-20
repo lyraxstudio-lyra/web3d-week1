@@ -185,69 +185,69 @@ async function init() {
     //scene.add(frontMiddle);
 
     // ceiling
-const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
-    const cielingMat = new THREE.MeshPhongMaterial({
-        //color: 0xfffdf8,
-        map: paint2,
-        //transparent: true,
-        //opacity: 0.4
-    });
-    const cielingShape = new THREE.BoxGeometry(700, 10, 700);
-    const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
-    cielingMain.position.set(0, 200, 0);
-    scene.add(cielingMain);
+//const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
+//    const cielingMat = new THREE.MeshPhongMaterial({
+//        //color: 0xfffdf8,
+//        map: paint2,
+//        //transparent: true,
+//        //opacity: 0.4
+//    });
+//    const cielingShape = new THREE.BoxGeometry(700, 10, 700);
+//    const cielingMain = new THREE.Mesh(cielingShape, cielingMat);
+//    cielingMain.position.set(0, 200, 0);
+//    scene.add(cielingMain);
 
-    //chair
-
-    const tex2 = await new THREE.TextureLoader().loadAsync("./src/ground.jpg");
-    const chair = new THREE.MeshPhongMaterial({
-        map: tex2
-    });
-    const seat1 = new THREE.BoxGeometry(100, 10, 80);
-    const Bottomseat = new THREE.Mesh(seat1, chair);
-    //Bottomseat.rotateX(2);
-    Bottomseat.position.set(-10, 5, -300);
-    scene.add(Bottomseat);
-
-    //const seat2 = new THREE.BoxGeometry(100, 10, 80);
-    const Backseat = new THREE.Mesh(seat1, chair);
-    Backseat.position.set(-10, 50, -340);
-    Backseat.rotateX(1.5);
-    scene.add(Backseat);
-
-    const seat2 = new THREE.BoxGeometry(10, 10, 65);
-    const Leg1 = new THREE.Mesh(seat2, chair);
-    Leg1.position.set(-40, -30, -280);
-    Leg1.rotateX(1.5);
-    scene.add(Leg1);
-
-    const Leg2 = new THREE.Mesh(seat2, chair);
-    Leg2.position.set(20, -30, -280);
-    Leg2.rotateX(1.5);
-    scene.add(Leg2);
-
-    const Leg3 = new THREE.Mesh(seat2, chair);
-    Leg3.position.set(20, -30, -330);
-    Leg3.rotateX(-1.5);
-    scene.add(Leg3);
-
-    const Leg4 = new THREE.Mesh(seat2, chair);
-    Leg4.position.set(-40, -30, -330);
-    Leg4.rotateX(-1.5);
-    scene.add(Leg4);
-    
-    const group2 = new THREE.Group();
-    group2.add(Bottomseat);
-    group2.add(Backseat);
-    group2.add(Leg1);
-    group2.add(Leg2);
-    group2.add(Leg3);
-    group2.add(Leg4);
-    
-    group2.rotateY(0.8);
-    group2.position.x = -20;
-    group2.position.y = -25;
-    scene.add(group2);
+    ////chair
+//
+    //const tex2 = await new THREE.TextureLoader().loadAsync("./src/ground.jpg");
+    //const chair = new THREE.MeshPhongMaterial({
+    //    map: tex2
+    //});
+    //const seat1 = new THREE.BoxGeometry(100, 10, 80);
+    //const Bottomseat = new THREE.Mesh(seat1, chair);
+    ////Bottomseat.rotateX(2);
+    //Bottomseat.position.set(-10, 5, -300);
+    //scene.add(Bottomseat);
+//
+    ////const seat2 = new THREE.BoxGeometry(100, 10, 80);
+    //const Backseat = new THREE.Mesh(seat1, chair);
+    //Backseat.position.set(-10, 50, -340);
+    //Backseat.rotateX(1.5);
+    //scene.add(Backseat);
+//
+    //const seat2 = new THREE.BoxGeometry(10, 10, 65);
+    //const Leg1 = new THREE.Mesh(seat2, chair);
+    //Leg1.position.set(-40, -30, -280);
+    //Leg1.rotateX(1.5);
+    //scene.add(Leg1);
+//
+    //const Leg2 = new THREE.Mesh(seat2, chair);
+    //Leg2.position.set(20, -30, -280);
+    //Leg2.rotateX(1.5);
+    //scene.add(Leg2);
+//
+    //const Leg3 = new THREE.Mesh(seat2, chair);
+    //Leg3.position.set(20, -30, -330);
+    //Leg3.rotateX(-1.5);
+    //scene.add(Leg3);
+//
+    //const Leg4 = new THREE.Mesh(seat2, chair);
+    //Leg4.position.set(-40, -30, -330);
+    //Leg4.rotateX(-1.5);
+    //scene.add(Leg4);
+    //
+    //const group2 = new THREE.Group();
+    //group2.add(Bottomseat);
+    //group2.add(Backseat);
+    //group2.add(Leg1);
+    //group2.add(Leg2);
+    //group2.add(Leg3);
+    //group2.add(Leg4);
+    //
+    //group2.rotateY(0.8);
+    //group2.position.x = -20;
+    //group2.position.y = -25;
+    //scene.add(group2);
 
     //const longWall = new THREE.BoxGeometry(10, 200, 510);
     //const leftWall = new THREE.Mesh(longWall, wall);
@@ -255,11 +255,11 @@ const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
     //scene.add(leftWall);
     // text
     //text group
-    group = new THREE.Group();
-    group.position.y = 100;
-    group.position.z = -50;
-
-    scene.add(group);
+    //group = new THREE.Group();
+    //group.position.y = 100;
+    //group.position.z = -50;
+//
+    //scene.add(group);
     // materials for the text
     materials = [
         new THREE.MeshPhongMaterial({
@@ -284,21 +284,21 @@ const paint2 = await new THREE.TextureLoader().loadAsync("./src/wall2.jpg");
     // image
 
     // load image as a texture
-    const imgSource = new THREE.TextureLoader().load("./src/violin.png");
-    // use loaded testure in a material
-    const imgMaterial = new THREE.MeshBasicMaterial({
-        map: imgSource,
-        transparent: true,
-        //depth: 100,
-        side: THREE.DoubleSide
-    });
-    // create image shape (should be the same aspect ratio as the image)
-    const imgGeometry = new THREE.PlaneGeometry(500, 1000);
-    // apply image to shape and add to scene
-    const imgPlane = new THREE.Mesh(imgGeometry, imgMaterial);
-    imgPlane.position.set(0, 350, -600);
-    imgPlane.rotateZ(-0.6);
-    scene.add(imgPlane);
+    //const imgSource = new THREE.TextureLoader().load("./src/violin.png");
+    //// use loaded testure in a material
+    //const imgMaterial = new THREE.MeshBasicMaterial({
+    //    map: imgSource,
+    //    transparent: true,
+    //    //depth: 100,
+    //    side: THREE.DoubleSide
+    //});
+    //// create image shape (should be the same aspect ratio as the image)
+    //const imgGeometry = new THREE.PlaneGeometry(500, 1000);
+    //// apply image to shape and add to scene
+    //const imgPlane = new THREE.Mesh(imgGeometry, imgMaterial);
+    //imgPlane.position.set(0, 350, -600);
+    //imgPlane.rotateZ(-0.6);
+    //scene.add(imgPlane);
 
     // Ground
     const earth = new THREE.PlaneGeometry(4000, 4000);
