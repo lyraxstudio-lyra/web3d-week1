@@ -1,4 +1,4 @@
-import { Tab } from '../ui/Tab.js';
+import { Tab } from './Tab.js';
 
 class Console extends Tab {
 

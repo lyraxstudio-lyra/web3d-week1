@@ -1,6 +1,6 @@
-import { Tab } from '../ui/Tab.js';
-import { List } from '../ui/List.js';
-import { Item } from '../ui/Item.js';
+import { Tab } from './Tab.js';
+import { List } from './List.js';
+import { Item } from './Item.js';
 
 import { RendererUtils, NoToneMapping, LinearSRGBColorSpace } from 'three/webgpu';
 

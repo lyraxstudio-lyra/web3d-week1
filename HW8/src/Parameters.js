@@ -1,8 +1,8 @@
-import { Tab } from '../ui/Tab.js';
-import { List } from '../ui/List.js';
-import { Item } from '../ui/Item.js';
-import { createValueSpan } from '../ui/utils.js';
-import { ValueNumber, ValueSlider, ValueSelect, ValueCheckbox, ValueColor, ValueButton } from '../ui/Values.js';
+import { Tab } from './Tab.js';
+import { List } from './List.js';
+import { Item } from './Item.js';
+import { createValueSpan } from './utils.js';
+import { ValueNumber, ValueSlider, ValueSelect, ValueCheckbox, ValueColor, ValueButton } from './Values.js';
 
 class ParametersGroup {
 

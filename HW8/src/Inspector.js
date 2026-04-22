@@ -1,11 +1,11 @@
 
-import { RendererInspector } from '/RendererInspector.js';
-import { Profiler } from '/Profiler.js';
-import { Performance } from '/Performance.js';
-import { Console } from '/Console.js';
-import { Parameters } from '/Parameters.js';
-import { Viewer } from '/Viewer.js';
-import { setText, splitPath, splitCamelCase } from './ui/utils.js';
+import { RendererInspector } from './RendererInspector.js';
+import { Profiler } from './Profiler.js';
+import { Performance } from './Performance.js';
+import { Console } from './Console.js';
+import { Parameters } from './Parameters.js';
+import { Viewer } from './Viewer.js';
+import { setText, splitPath, splitCamelCase } from './utils.js';
 
 import { QuadMesh, NodeMaterial, CanvasTarget, setConsoleFunction, REVISION, NoToneMapping } from 'three/webgpu';
 import { renderOutput, vec2, vec3, vec4, Fn, screenUV, step, OnMaterialUpdate, uniform } from 'three/tsl';

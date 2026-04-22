@@ -1,8 +1,8 @@
-import { Tab } from '../ui/Tab.js';
-import { List } from '../ui/List.js';
-import { Graph } from '../ui/Graph.js';
-import { Item } from '../ui/Item.js';
-import { createValueSpan, setText } from '../ui/utils.js';
+import { Tab } from './Tab.js';
+import { List } from './List.js';
+import { Graph } from './Graph.js';
+import { Item } from './Item.js';
+import { createValueSpan, setText } from './utils.js';
 
 class Performance extends Tab {
 
