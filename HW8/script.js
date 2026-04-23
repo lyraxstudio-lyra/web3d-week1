@@ -33,14 +33,14 @@ async function init() {
     //camera from example
     const LAYER_VOLUMETRIC_LIGHTING = 10;
 
-    camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 0.025, 5);
-    camera.position.set(-0.7, 0.2, 0.2);
+    camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.025, 5);
+    camera.position.set(-70, 400, 600);
 
     scene = new THREE.Scene();
 
     //Light
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.position.set(0.2, 0.3, 0.2);
+    const spotLight = new THREE.SpotLight(0xffffff, 3);
+    spotLight.position.set(0.4, 0.6, 0.3);
     spotLight.castShadow = true;
     spotLight.angle = Math.PI / 6;
     spotLight.penumbra = 1;
@@ -61,7 +61,7 @@ async function init() {
     dracoLoader.setDecoderConfig({ type: "js" });
 
     gltf = (await new GLTFLoader().setDRACOLoader(dracoLoader).loadAsync("./src/tree.glb")).scene;
-    gltf.scale.setScalar(0.5);
+    gltf.scale.setScalar(0.1);
     scene.add(gltf);
 
     const causticMap = new THREE.TextureLoader().load("./src/Caustic_Free.jpg");
@@ -71,10 +71,11 @@ async function init() {
     // Material
 
     const duck = gltf.children[0];
+    //duck.size = (0.1,0,1,0.1);
     duck.material = new THREE.MeshPhysicalNodeMaterial();
     duck.material.side = THREE.DoubleSide;
     duck.material.transparent = true;
-    duck.material.color = new THREE.Color(0xffd700);
+    duck.material.color = new THREE.Color(0x8ae7ff);
     duck.material.transmission = 1;
     duck.material.thickness = 0.25;
     duck.material.ior = 1.5;
@@ -287,7 +288,7 @@ function onWindowResize() {
 // The render function is trigger at the end to update the canvas.
 function animate() {
     for (const mesh of gltf.children) {
-        mesh.rotation.y -= 0.01;
+        mesh.rotation.z -= 0.01;
     }
 
     controls.update();
