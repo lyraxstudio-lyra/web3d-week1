@@ -6,7 +6,10 @@
 // in all sketches. Add-ons will be added after.
 
 // The main library script
-import * as THREE from "three";
+import * as THREE from 'three/webgpu';
+
+			import { uniform, refract, div, frameId, lightViewPosition, float, positionView, positionViewDirection, screenUV, pass, texture3D, time, screenCoordinate, normalView, texture, Fn, vec2, vec3 } from 'three/tsl';
+
 
 // The plug-in for orbit controls
 import { OrbitControls } from "./src/OrbitControls.js";
