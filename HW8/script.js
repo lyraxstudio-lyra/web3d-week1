@@ -6,10 +6,28 @@
 // in all sketches. Add-ons will be added after.
 
 // The main library script
-import * as THREE from 'three/webgpu';
+import * as THREE from "three/webgpu";
 
-			import { uniform, refract, div, frameId, lightViewPosition, float, positionView, positionViewDirection, screenUV, pass, texture3D, time, screenCoordinate, normalView, texture, Fn, vec2, vec3 } from 'three/tsl';
-
+import {
+    uniform,
+    refract,
+    div,
+    frameId,
+    lightViewPosition,
+    float,
+    positionView,
+    positionViewDirection,
+    screenUV,
+    pass,
+    texture3D,
+    time,
+    screenCoordinate,
+    normalView,
+    texture,
+    Fn,
+    vec2,
+    vec3
+} from "three/tsl";
 
 // The plug-in for orbit controls
 import { OrbitControls } from "./src/OrbitControls.js";
@@ -33,25 +51,25 @@ async function init() {
     //camera from example
     const LAYER_VOLUMETRIC_LIGHTING = 10;
 
-    camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.025, 5);
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.025, 5);
     camera.position.set(-70, 400, 600);
 
     scene = new THREE.Scene();
 
     //Light
-    const spotLight = new THREE.SpotLight(0xffffff, 3);
+    const spotLight = new THREE.SpotLight(0xfffdfb, 4);
     spotLight.position.set(0.4, 0.6, 0.3);
     spotLight.castShadow = true;
-    spotLight.angle = Math.PI / 6;
-    spotLight.penumbra = 1;
-    spotLight.decay = 2;
+    spotLight.angle = Math.PI / 8;
+    spotLight.penumbra = 0.8;
+    spotLight.decay = 1;
     spotLight.distance = 0;
     spotLight.shadow.mapType = THREE.HalfFloatType; // For HDR Caustics
     spotLight.shadow.mapSize.width = 1024;
     spotLight.shadow.mapSize.height = 1024;
     spotLight.shadow.camera.near = 0.1;
     spotLight.shadow.camera.far = 1;
-    spotLight.shadow.intensity = 0.95;
+    spotLight.shadow.intensity = 0.9;
     spotLight.layers.enable(LAYER_VOLUMETRIC_LIGHTING);
     scene.add(spotLight);
 
@@ -75,12 +93,12 @@ async function init() {
     duck.material = new THREE.MeshPhysicalNodeMaterial();
     duck.material.side = THREE.DoubleSide;
     duck.material.transparent = true;
-    duck.material.color = new THREE.Color(0x8ae7ff);
+    duck.material.color = new THREE.Color(0x87e5ff);
     duck.material.transmission = 1;
-    duck.material.thickness = 0.25;
+    duck.material.thickness = 0.2;
     duck.material.ior = 1.5;
-    duck.material.metalness = 0;
-    duck.material.roughness = 0.1;
+    duck.material.metalness = 0.2;
+    duck.material.roughness = 0;
     duck.castShadow = true;
 
     // TSL Shader
@@ -251,9 +269,7 @@ async function init() {
 
     // Volumetric Lighting Pass
 
-    const volumetricPass = pass(scene, camera, { depth: false, samples: 0 }).toInspector(
-        "Volumetric Lighting / Raw"
-    );
+    const volumetricPass = pass(scene, camera, { depth: false, samples: 0 }).toInspector("Volumetric Lighting / Raw");
     volumetricPass.name = "Volumetric Lighting";
     volumetricPass.setLayers(volumetricLayer);
     volumetricPass.setResolutionScale(0.5);
