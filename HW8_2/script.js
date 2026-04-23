@@ -1,4 +1,4 @@
-import * as THREE from "three/webgpu";
+import * as THREE from "./src/three/webgpu";
 
 import { Inspector } from "./src/Inspector.js";
 
