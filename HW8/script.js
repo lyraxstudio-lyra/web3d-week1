@@ -68,7 +68,7 @@ async function init() {
     spotLight.shadow.mapSize.width = 1024;
     spotLight.shadow.mapSize.height = 1024;
     spotLight.shadow.camera.near = 0.1;
-    spotLight.shadow.camera.far = 1;
+    spotLight.shadow.camera.far = 1.1;
     spotLight.shadow.intensity = 0.9;
     spotLight.layers.enable(LAYER_VOLUMETRIC_LIGHTING);
     scene.add(spotLight);
