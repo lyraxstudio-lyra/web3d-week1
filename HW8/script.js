@@ -43,6 +43,7 @@ import { bloom } from "./src/tsl/display/BloomNode.js";
 let camera, canvas, controls, scene, renderer;
 let renderPipeline;
 let gltf;
+let gltf2;
 // Run the "init" function which is like "setup" in p5.
 init();
 
@@ -81,6 +82,10 @@ async function init() {
     gltf = (await new GLTFLoader().setDRACOLoader(dracoLoader).loadAsync("./src/tree.glb")).scene;
     gltf.scale.setScalar(0.1);
     scene.add(gltf);
+	
+	gltf2 = (await new GLTFLoader().setDRACOLoader(dracoLoader).loadAsync("./src/garden.glb")).scene;
+    gltf2.scale.setScalar(0.1);
+    scene.add(gltf2);
 
     const causticMap = new THREE.TextureLoader().load("./src/Caustic_Free.jpg");
     causticMap.wrapS = causticMap.wrapT = THREE.RepeatWrapping;
@@ -100,6 +105,21 @@ async function init() {
     duck.material.metalness = 0.2;
     duck.material.roughness = 0;
     duck.castShadow = true;
+
+	
+	// garden
+	     const rock = gltf2.children[0];
+    //duck.size = (0.1,0,1,0.1);
+    rock.material = new THREE.MeshPhysicalNodeMaterial();
+    rock.material.side = THREE.DoubleSide;
+    rock.material.transparent = true;
+   rock.material.color = new THREE.Color(0x87e5ff);
+    rock.material.transmission = 1;
+   rock.material.thickness = 0.2;
+    rock.material.ior = 1.5;
+    rock.material.metalness = 0.2;
+    rock.material.roughness = 0;
+   rock.castShadow = true;
 
     // TSL Shader
 
