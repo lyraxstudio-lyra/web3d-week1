@@ -84,7 +84,7 @@ async function init() {
 	scene.add(gltf);
 
 	gltf2 = (await new GLTFLoader().setDRACOLoader(dracoLoader).loadAsync("./src/garden.glb")).scene;
-	gltf2.scale.setScalar(0.1);
+	gltf2.scale.setScalar(0.03);
 	scene.add(gltf2);
 
 	const causticMap = new THREE.TextureLoader().load("./src/Caustic_Free.jpg");
@@ -101,7 +101,7 @@ async function init() {
 	duck.material.color = new THREE.Color(0x87e5ff);
 	duck.material.transmission = 1;
 	duck.material.thickness = 0.2;
-	duck.material.ior = 1.5;
+	duck.material.ior = 1.3;
 	duck.material.metalness = 0.2;
 	duck.material.roughness = 0;
 	duck.castShadow = true;
@@ -112,12 +112,12 @@ async function init() {
 	rock.material = new THREE.MeshPhysicalNodeMaterial();
 	rock.material.side = THREE.DoubleSide;
 	rock.material.transparent = true;
-	rock.material.color = new THREE.Color(0xffffff);
+	rock.material.color = new THREE.Color(0xfff178);
 	rock.material.transmission = 1;
-	rock.material.thickness = 0.2;
-	rock.material.ior = 1.5;
-	rock.material.metalness = 2;
-	rock.material.roughness = 0;
+	rock.material.thickness = 2;
+	rock.material.ior = 1.0;
+	rock.material.metalness = 5;
+	rock.material.roughness = 2;
 	rock.castShadow = true;
 
 	// TSL Shader

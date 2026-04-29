@@ -39,6 +39,7 @@ import { Inspector } from "./src/Inspector.js";
 
 import { bayer16 } from "./src/Bayer.js";
 import { bloom } from "./src/tsl/display/BloomNode.js";
+
 // Declaring global variables.
 let camera, canvas, controls, scene, renderer;
 let renderPipeline;
@@ -51,7 +52,7 @@ init();
 function initSky() {
 	// Add Sky
 	sky = new SkyMesh();
-	sky.scale.setScalar(450000);
+	sky.scale.setScalar(300000);
 	scene.add(sky);
 
 	sun = new THREE.Vector3();
@@ -63,15 +64,16 @@ function initSky() {
 		rayleigh: 3,
 		mieCoefficient: 0.005,
 		mieDirectionalG: 0.7,
-		elevation: 2,
-		azimuth: 180,
+		elevation: 1,
+		azimuth: 50,
 		exposure: 0.5,
 		cloudCoverage: 0.4,
-		cloudDensity: 0.4,
-		cloudElevation: 0.5,
+		cloudDensity: 0.8,
+		cloudElevation: 0.8,
 		showSunDisc: true
 	};
-	function gui2Changed() {
+
+	//function gui2Changed() {
 		sky.turbidity.value = effectController.turbidity;
 		sky.rayleigh.value = effectController.rayleigh;
 		sky.mieCoefficient.value = effectController.mieCoefficient;
@@ -91,42 +93,58 @@ function initSky() {
 		renderer.toneMappingExposure = effectController.exposure;
 	}
 
-	const gui2 = renderer.inspector.createParameters("Settings");
-
-	gui2.add(effectController, "turbidity", 0.0, 20.0, 0.1).onChange(gui2Changed);
-	gui2.add(effectController, "rayleigh", 0.0, 4, 0.001).onChange(gui2Changed);
-	gui2.add(effectController, "mieCoefficient", 0.0, 0.1, 0.001).onChange(gui2Changed);
-	gui2.add(effectController, "mieDirectionalG", 0.0, 1, 0.001).onChange(gui2Changed);
-	gui2.add(effectController, "elevation", 0, 90, 0.1).onChange(gui2Changed);
-	gui2.add(effectController, "azimuth", -180, 180, 0.1).onChange(gui2Changed);
-	gui2.add(effectController, "exposure", 0, 1, 0.0001).onChange(gui2Changed);
-	gui2.add(effectController, "showSunDisc").onChange(gui2Changed);
-
-	const folderClouds = gui2.addFolder("Clouds");
-	folderClouds.add(effectController, "cloudCoverage", 0, 1, 0.01).name("coverage").onChange(gui2Changed);
-	folderClouds.add(effectController, "cloudDensity", 0, 1, 0.01).name("density").onChange(gui2Changed);
-	folderClouds.add(effectController, "cloudElevation", 0, 1, 0.01).name("elevation").onChange(gui2Changed);
-
-	gui2Changed();
-}
+	//const gui2 = renderer.inspector.createParameters("Settings");
+//
+	//gui2.add(effectController, "turbidity", 0.0, 20.0, 0.1).onChange(gui2Changed);
+	//gui2.add(effectController, "rayleigh", 0.0, 4, 0.001).onChange(gui2Changed);
+	//gui2.add(effectController, "mieCoefficient", 0.0, 0.1, 0.001).onChange(gui2Changed);
+	//gui2.add(effectController, "mieDirectionalG", 0.0, 1, 0.001).onChange(gui2Changed);
+	//gui2.add(effectController, "elevation", 0, 90, 0.1).onChange(gui2Changed);
+	//gui2.add(effectController, "azimuth", -180, 180, 0.1).onChange(gui2Changed);
+	//gui2.add(effectController, "exposure", 0, 1, 0.0001).onChange(gui2Changed);
+	//gui2.add(effectController, "showSunDisc").onChange(gui2Changed);
+//
+	//const folderClouds = gui2.addFolder("Clouds");
+	//folderClouds.add(effectController, "cloudCoverage", 0, 1, 0.01).name("coverage").onChange(gui2Changed);
+	//folderClouds.add(effectController, "cloudDensity", 0, 1, 0.01).name("density").onChange(gui2Changed);
+	//folderClouds.add(effectController, "cloudElevation", 0, 1, 0.01).name("elevation").onChange(gui2Changed);
+//
+	//gui2Changed();
+//}
 
 function init() {
 	//camera from example
 	const LAYER_VOLUMETRIC_LIGHTING = 10;
 
 	camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.025, 5);
-	camera.position.set(-70, 400, 600);
+	camera.position.set(-70, 550, 600);
 
 	scene = new THREE.Scene();
 
+	// Renderer
+	renderer = new THREE.WebGPURenderer({ antialias: true });
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setAnimationLoop(animate);
+	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	renderer.toneMappingExposure = 0.6;
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.transmitted = true;
+	renderer.inspector = new Inspector();
+	document.body.appendChild(renderer.domElement);
+
+	window.addEventListener("resize", onWindowResize);
+
+	initSky();
+
 	//Light
-	const spotLight = new THREE.SpotLight(0xfffdfb, 4);
-	spotLight.position.set(0.4, 0.6, 0.3);
+	const spotLight = new THREE.SpotLight(0xffc285, 6);
+	spotLight.position.set(0.4, 0.1, 0.6);
 	spotLight.castShadow = true;
-	spotLight.angle = Math.PI / 8;
-	spotLight.penumbra = 0.8;
+	spotLight.angle = Math.PI / 6;
+	spotLight.penumbra = 2;
 	spotLight.decay = 1;
-	spotLight.distance = 0;
+	spotLight.distance = -100;
 	spotLight.shadow.mapType = THREE.HalfFloatType; // For HDR Caustics
 	spotLight.shadow.mapSize.width = 1024;
 	spotLight.shadow.mapSize.height = 1024;
@@ -136,140 +154,105 @@ function init() {
 	spotLight.layers.enable(LAYER_VOLUMETRIC_LIGHTING);
 	scene.add(spotLight);
 
+	//spotlight from the top 
+	//const spotlight2 = new THREE.SpotLight(0xfffdfb,10);
+	//spotLight2.position.set(0.4, 0.1, 0.3);
 	//model
-	//model
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath("./src/draco/");
-dracoLoader.setDecoderConfig({ type: "js" });
+	const dracoLoader = new DRACOLoader();
+	dracoLoader.setDecoderPath("./src/draco/");
+	dracoLoader.setDecoderConfig({ type: "js" });
 
-const loader = new GLTFLoader();
-loader.setDRACOLoader(dracoLoader);
+	const loader = new GLTFLoader();
+	loader.setDRACOLoader(dracoLoader);
 
-const causticMap = new THREE.TextureLoader().load("./src/Caustic_Free.jpg");
-causticMap.wrapS = causticMap.wrapT = THREE.RepeatWrapping;
-causticMap.colorSpace = THREE.SRGBColorSpace;
-
-const causticOcclusion = uniform(1);
-
-let duck;
-let rock;
-
-loader.load("./src/tree.glb", function (loadedGltf) {
-	gltf = loadedGltf.scene;
-	gltf.scale.setScalar(0.1);
-	scene.add(gltf);
-
-	duck = gltf.children[0];
-
-	duck.material = new THREE.MeshPhysicalNodeMaterial();
-	duck.material.side = THREE.DoubleSide;
-	duck.material.transparent = true;
-	duck.material.color = new THREE.Color(0x87e5ff);
-	duck.material.transmission = 1;
-	duck.material.thickness = 0.2;
-	duck.material.ior = 1.5;
-	duck.material.metalness = 0.2;
-	duck.material.roughness = 0;
-	duck.castShadow = true;
-
-	const causticEffect = Fn(() => {
-		const refractionVector = refract(
-			positionViewDirection.negate(),
-			normalView,
-			div(1.0, duck.material.ior)
-		).normalize();
-
-		const viewZ = normalView.z.pow(causticOcclusion);
-		const textureUV = refractionVector.xy.mul(0.6);
-		const causticColor = uniform(duck.material.color);
-		const chromaticAberrationOffset = normalView.z.pow(-0.9).mul(0.004);
-
-		const causticProjection = vec3(
-			texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset.negate(), 0))).r,
-			texture(causticMap, textureUV.add(vec2(0, chromaticAberrationOffset.negate()))).g,
-			texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset, chromaticAberrationOffset))).b
-		);
-
-		return causticProjection.mul(viewZ.mul(60)).add(viewZ).mul(causticColor);
-	})().toVar();
-
-	duck.material.castShadowNode = causticEffect;
-
-	duck.material.emissiveNode = Fn(() => {
-		const thicknessPowerNode = float(3.0);
-
-		const scatteringHalf = lightViewPosition(spotLight).sub(positionView).normalize();
-		const scatteringDot = float(
-			positionViewDirection.dot(scatteringHalf.negate()).saturate().pow(thicknessPowerNode)
-		);
-
-		return causticEffect.mul(scatteringDot.add(0.1)).mul(0.02);
-	})();
-
-	const gui = renderer.inspector.createParameters("Volumetric Caustics");
-	gui.add(causticOcclusion, "value", 0, 20).name("caustic occlusion");
-	gui.addColor(duck.material, "color").name("material color");
-});
-
-loader.load("./src/garden.glb", function (loadedGltf2) {
-	gltf2 = loadedGltf2.scene;
-	gltf2.scale.setScalar(0.05);
-	scene.add(gltf2);
-
-	rock = gltf2.children[0];
-
-	rock.material = new THREE.MeshPhysicalNodeMaterial();
-	rock.material.side = THREE.DoubleSide;
-	rock.material.transparent = true;
-	rock.material.color = new THREE.Color(0xffffff);
-	rock.material.thickness = 0.4;
-	rock.material.roughness = 30;
-	rock.castShadow = true;
-});
-	// TSL Shader
+	const causticMap = new THREE.TextureLoader().load("./src/Caustic_Free.jpg");
+	causticMap.wrapS = causticMap.wrapT = THREE.RepeatWrapping;
+	causticMap.colorSpace = THREE.SRGBColorSpace;
 
 	const causticOcclusion = uniform(1);
 
-	const causticEffect = Fn(() => {
-		const refractionVector = refract(
-			positionViewDirection.negate(),
-			normalView,
-			div(1.0, duck.material.ior)
-		).normalize();
-		const viewZ = normalView.z.pow(causticOcclusion);
+	let duck;
+	let rock;
 
-		const textureUV = refractionVector.xy.mul(0.6);
+	loader.load("./src/tree.glb", function (loadedGltf) {
+		gltf = loadedGltf.scene;
+		gltf.scale.setScalar(0.15);
+		scene.add(gltf);
 
-		const causticColor = uniform(duck.material.color);
-		const chromaticAberrationOffset = normalView.z.pow(-0.9).mul(0.004);
+		duck = gltf.children[0];
 
-		const causticProjection = vec3(
-			texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset.negate(), 0))).r,
-			texture(causticMap, textureUV.add(vec2(0, chromaticAberrationOffset.negate()))).g,
-			texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset, chromaticAberrationOffset))).b
-		);
+		duck.material = new THREE.MeshPhysicalNodeMaterial();
+		duck.material.side = THREE.DoubleSide;
+		duck.material.transparent = true;
+		duck.material.color = new THREE.Color(0xffe3c7);
+		duck.material.transmission = 1.5;
+		duck.material.thickness = 0.5;
+		duck.material.ior = 1.5;
+		duck.material.metalness = 0;
+		duck.material.roughness = 0;
+		duck.castShadow = true;
 
-		return causticProjection.mul(viewZ.mul(60)).add(viewZ).mul(causticColor);
-	})().toVar();
+		const causticEffect = Fn(() => {
+			const refractionVector = refract(
+				positionViewDirection.negate(),
+				normalView,
+				div(1.0, duck.material.ior)
+			).normalize();
 
-	duck.material.castShadowNode = causticEffect;
+			const viewZ = normalView.z.pow(causticOcclusion);
+			const textureUV = refractionVector.xy.mul(0.6);
+			const causticColor = uniform(duck.material.color);
+			const chromaticAberrationOffset = normalView.z.pow(-0.9).mul(0.004);
 
-	duck.material.emissiveNode = Fn(() => {
-		// Custom emissive for illuminating backside of the mesh based on the caustic effect and light direction
+			const causticProjection = vec3(
+				texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset.negate(), 0))).r,
+				texture(causticMap, textureUV.add(vec2(0, chromaticAberrationOffset.negate()))).g,
+				texture(causticMap, textureUV.add(vec2(chromaticAberrationOffset, chromaticAberrationOffset))).b
+			);
 
-		const thicknessPowerNode = float(3.0);
+			return causticProjection.mul(viewZ.mul(60)).add(viewZ).mul(causticColor);
+		})().toVar();
 
-		const scatteringHalf = lightViewPosition(spotLight).sub(positionView).normalize();
-		const scatteringDot = float(
-			positionViewDirection.dot(scatteringHalf.negate()).saturate().pow(thicknessPowerNode)
-		);
+		duck.material.castShadowNode = causticEffect;
 
-		return causticEffect.mul(scatteringDot.add(0.1)).mul(0.02);
-	})();
+		duck.material.emissiveNode = Fn(() => {
+			// Custom emissive for illuminating backside of the mesh based on the caustic effect and light direction
 
-	//Sky
+			const thicknessPowerNode = float(3.0);
 
-	//End of Sky
+			const scatteringHalf = lightViewPosition(spotLight).sub(positionView).normalize();
+			const scatteringDot = float(
+				positionViewDirection.dot(scatteringHalf.negate()).saturate().pow(thicknessPowerNode)
+			);
+
+			return causticEffect.mul(scatteringDot.add(0.1)).mul(0.02);
+		})();
+
+		const gui = renderer.inspector.createParameters("Volumetric Caustics");
+		gui.add(causticOcclusion, "value", 0, 40).name("caustic occlusion");
+		gui.addColor(duck.material, "color").name("material color");
+	});
+
+	loader.load("./src/garden.glb", function (loadedGltf2) {
+		gltf2 = loadedGltf2.scene;
+		gltf2.scale.setScalar(0.02);
+		scene.add(gltf2);
+
+		rock = gltf2.children[0];
+
+		const stoneTexture = new THREE.TextureLoader().load("./src/ground.jpeg");
+		stoneTexture.colorSpace = THREE.SRGBColorSpace;
+
+		rock.material = new THREE.MeshStandardMaterial({
+			map: stoneTexture,
+			roughness: 10,
+			metalness: 0,
+			side: THREE.DoubleSide
+		});
+
+		rock.castShadow = true;
+	});
+
 	// Ground
 
 	const textureLoader = new THREE.TextureLoader();
@@ -277,34 +260,15 @@ loader.load("./src/garden.glb", function (loadedGltf2) {
 	map.wrapS = map.wrapT = THREE.RepeatWrapping;
 	map.repeat.set(10, 10);
 
-	const geometry = new THREE.PlaneGeometry(2, 2);
-	const material = new THREE.MeshStandardMaterial({ color: 0 });
+	const geometry = new THREE.PlaneGeometry(0.37, 0.37);
+	const material = new THREE.MeshStandardMaterial({
+	map: new THREE.TextureLoader().load("./src/dirt.jpeg")
+});
 
-	const ground = new THREE.Mesh(geometry, material);
+const ground = new THREE.Mesh(geometry, material);
 	ground.rotation.x = -Math.PI / 2;
 	ground.receiveShadow = true;
 	scene.add(ground);
-
-	// Renderer
-	renderer = new THREE.WebGPURenderer({ antialias: true });
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setAnimationLoop(animate);
-	renderer.toneMapping = THREE.ACESFilmicToneMapping;
-	renderer.toneMappingExposure = 0.5;
-	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.transmitted = true;
-	renderer.inspector = new Inspector();
-	document.body.appendChild(renderer.domElement);
-
-	window.addEventListener("resize", onWindowResize);
-
-	initSky();
-	// GUI
-
-	const gui = renderer.inspector.createParameters("Volumetric Caustics");
-	gui.add(causticOcclusion, "value", 0, 20).name("caustic occlusion");
-	gui.addColor(duck.material, "color").name("material color");
 
 	// Post-Processing
 
@@ -423,13 +387,6 @@ loader.load("./src/garden.glb", function (loadedGltf2) {
 	controls.target.y = 0.02;
 	controls.maxDistance = 1;
 
-	window.addEventListener("resize", onWindowResize);
-
-	const controls2 = new OrbitControls(camera, renderer.domElement);
-	//controls.maxPolarAngle = Math.PI / 2;
-	controls2.enableZoom = false;
-	controls2.enablePan = false;
-
 	function onWindowResize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
@@ -438,12 +395,18 @@ loader.load("./src/garden.glb", function (loadedGltf2) {
 	}
 
 	function animate() {
-		for (const mesh of gltf.children) {
-			mesh.rotation.z -= 0.01;
+		if (gltf) {
+			for (const mesh of gltf.children) {
+				mesh.rotation.z -= 0.005;
+			}
 		}
 
-		controls.update();
+		if (controls) {
+			controls.update();
+		}
 
-		renderPipeline.render();
+		if (renderPipeline) {
+			renderPipeline.render();
+		}
 	}
 }
