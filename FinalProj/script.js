@@ -232,7 +232,7 @@ function init() {
 		gui.add(causticOcclusion, "value", 0, 40).name("caustic occlusion");
 		gui.addColor(duck.material, "color").name("material color");
 	});
-
+//garden
 	loader.load("./src/garden.glb", function (loadedGltf2) {
 		gltf2 = loadedGltf2.scene;
 		gltf2.scale.setScalar(0.02);
@@ -245,13 +245,36 @@ function init() {
 
 		rock.material = new THREE.MeshStandardMaterial({
 			map: stoneTexture,
-			roughness: 10,
+			roughness: 8,
 			metalness: 0,
 			side: THREE.DoubleSide
 		});
-
 		rock.castShadow = true;
 	});
+	
+//end garden
+	
+	//flower
+	//loader.load("./src/garden.glb", function (loadedGltf2) {
+	//	gltf2 = loadedGltf2.scene;
+	//	gltf2.scale.setScalar(0.02);
+	//	scene.add(gltf2);
+//
+	//	rock = gltf2.children[0];
+//
+	//	const stoneTexture = new THREE.TextureLoader().load("./src/ground.jpeg");
+	//	stoneTexture.colorSpace = THREE.SRGBColorSpace;
+//
+	//	rock.material = new THREE.MeshStandardMaterial({
+	//		map: stoneTexture,
+	//		roughness: 8,
+	//		metalness: 0,
+	//		side: THREE.DoubleSide
+	//	});
+	//	rock.castShadow = true;
+	//});
+	
+//end flower
 
 	// Ground
 
