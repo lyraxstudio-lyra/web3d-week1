@@ -66,10 +66,10 @@ function initSky() {
 		mieDirectionalG: 0.7,
 		elevation: 1,
 		azimuth: 40,
-		exposure: 0.5,
+		exposure: 0.3,
 		cloudCoverage: 0.4,
-		cloudDensity: 0.8,
-		cloudElevation: 0.8,
+		cloudDensity: 1,
+		cloudElevation: 0.9,
 		showSunDisc: true
 	};
 
