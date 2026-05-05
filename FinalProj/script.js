@@ -65,7 +65,7 @@ function initSky() {
 		mieCoefficient: 0.005,
 		mieDirectionalG: 0.7,
 		elevation: 1,
-		azimuth: 50,
+		azimuth: 40,
 		exposure: 0.5,
 		cloudCoverage: 0.4,
 		cloudDensity: 0.8,
