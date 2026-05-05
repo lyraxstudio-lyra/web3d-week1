@@ -45,6 +45,7 @@ let camera, canvas, controls, scene, renderer;
 let renderPipeline;
 let gltf;
 let gltf2;
+let gltf3;
 let sky, sun;
 
 init();
@@ -66,7 +67,7 @@ function initSky() {
 		mieDirectionalG: 0.7,
 		elevation: 1,
 		azimuth: 40,
-		exposure: 0.3,
+		exposure: 0.5,
 		cloudCoverage: 0.4,
 		cloudDensity: 1,
 		cloudElevation: 0.9,
@@ -116,8 +117,8 @@ function init() {
 	//camera from example
 	const LAYER_VOLUMETRIC_LIGHTING = 10;
 
-	camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.025, 5);
-	camera.position.set(-70, 550, 600);
+	camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.028, 5);
+	camera.position.set(-70, 1500, 600);
 
 	scene = new THREE.Scene();
 
@@ -138,7 +139,7 @@ function init() {
 	initSky();
 
 	//Light
-	const spotLight = new THREE.SpotLight(0xffc285, 6);
+	const spotLight = new THREE.SpotLight(0xffc285, 7);
 	spotLight.position.set(0.4, 0.1, 0.6);
 	spotLight.castShadow = true;
 	spotLight.angle = Math.PI / 6;
@@ -176,7 +177,8 @@ function init() {
 
 	loader.load("./src/tree.glb", function (loadedGltf) {
 		gltf = loadedGltf.scene;
-		gltf.scale.setScalar(0.15);
+		gltf.scale.setScalar(0.2);
+		gltf.translateY(-0.07);
 		scene.add(gltf);
 
 		duck = gltf.children[0];
@@ -235,7 +237,9 @@ function init() {
 //garden
 	loader.load("./src/garden.glb", function (loadedGltf2) {
 		gltf2 = loadedGltf2.scene;
-		gltf2.scale.setScalar(0.02);
+		gltf2.scale.setScalar(0.1);
+		gltf2.translateY(-0.05);
+		gltf2.translateZ(0.01);
 		scene.add(gltf2);
 
 		rock = gltf2.children[0];
@@ -250,9 +254,35 @@ function init() {
 			side: THREE.DoubleSide
 		});
 		rock.castShadow = true;
+		rock.receiveShadow = true;
 	});
 	
 //end garden
+	
+	//flower
+	loader.load("./src/flower.glb", function (loadedGltf3) {
+		gltf3 = loadedGltf3.scene;
+		gltf3.scale.setScalar(0.01);
+		gltf3.translateY(-0.05);
+		gltf3.translateZ(0.01);
+		scene.add(gltf3);
+
+		flower = gltf3.children[0];
+		
+		//flower.receiveShadow = true;
+
+		//const stoneTexture = new THREE.TextureLoader().load("./src/ground.jpeg");
+		//stoneTexture.colorSpace = THREE.SRGBColorSpace;
+//
+		//rock.material = new THREE.MeshStandardMaterial({
+		//	map: stoneTexture,
+		//	roughness: 8,
+		//	metalness: 0,
+		//	side: THREE.DoubleSide
+		//});
+		//rock.castShadow = true;
+	});
+	
 	
 	//flower
 	//loader.load("./src/garden.glb", function (loadedGltf2) {
@@ -283,7 +313,7 @@ function init() {
 	map.wrapS = map.wrapT = THREE.RepeatWrapping;
 	map.repeat.set(10, 10);
 
-	const geometry = new THREE.PlaneGeometry(0.37, 0.37);
+	const geometry = new THREE.PlaneGeometry(10, 10);
 	const material = new THREE.MeshStandardMaterial({
 	map: new THREE.TextureLoader().load("./src/dirt.jpeg")
 });
@@ -291,6 +321,7 @@ function init() {
 const ground = new THREE.Mesh(geometry, material);
 	ground.rotation.x = -Math.PI / 2;
 	ground.receiveShadow = true;
+	ground.translateZ(-4);
 	scene.add(ground);
 
 	// Post-Processing
