@@ -186,7 +186,7 @@ function init() {
 		duck.material = new THREE.MeshPhysicalNodeMaterial();
 		duck.material.side = THREE.DoubleSide;
 		duck.material.transparent = true;
-		duck.material.color = new THREE.Color(0xffe3c7);
+		duck.material.color = new THREE.Color(0xffffb9);
 		duck.material.transmission = 1.5;
 		duck.material.thickness = 0.5;
 		duck.material.ior = 1.5;
@@ -237,7 +237,7 @@ function init() {
 //garden
 	loader.load("./src/garden.glb", function (loadedGltf2) {
 		gltf2 = loadedGltf2.scene;
-		gltf2.scale.setScalar(0.1);
+		gltf2.scale.setScalar(0.05);
 		gltf2.translateY(-0.05);
 		gltf2.translateZ(0.01);
 		scene.add(gltf2);
@@ -263,7 +263,7 @@ function init() {
 	loader.load("./src/flower.glb", function (loadedGltf3) {
 		gltf3 = loadedGltf3.scene;
 		gltf3.scale.setScalar(0.01);
-		gltf3.translateY(-0.05);
+		gltf3.translateY(0.08);
 		gltf3.translateZ(0.01);
 		scene.add(gltf3);
 
@@ -449,11 +449,11 @@ const ground = new THREE.Mesh(geometry, material);
 	}
 
 	function animate() {
-		if (gltf) {
-			for (const mesh of gltf.children) {
-				mesh.rotation.z -= 0.005;
-			}
-		}
+		//if (gltf) {
+		//	for (const mesh of gltf.children) {
+		//		mesh.rotation.z -= 0.005;
+		//	}
+		//}
 
 		if (controls) {
 			controls.update();
